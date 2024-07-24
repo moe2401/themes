@@ -1,0 +1,37 @@
+@use "global" as *;
+
+.campaign {
+  overflow-x: hidden;
+  scrollbar-width: none;
+  padding-top: rem(4);
+}
+
+.campaign__inner {
+  position: relative;
+}
+
+.campaign__swiper-wrap {
+  margin-top: rem(19);
+  margin-right: calc(50% - 50vw);
+  width: 100vw;
+  @include mq("md") {
+    margin-top: rem(40);
+  }
+}
+
+.campaign__swiper-wrapper {
+  padding: rem(4);
+}
+
+.campaign__slide {
+  width: auto;
+  height: auto;
+}
+
+.campaign__button {
+  text-align: center;
+  margin-top: rem(33);
+  @include mq("md") {
+    margin-top: rem(70);
+  }
+}

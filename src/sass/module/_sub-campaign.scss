@@ -1,0 +1,33 @@
+@use "global" as *;
+
+.sub-campaign__cards {
+  @include mq("md") {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: rem(40);
+    row-gap: rem(80);
+  }
+}
+
+.sub-campaign__item {
+  display: flex;
+  justify-content: center;
+}
+
+.sub-campaign__item:not(:first-child) {
+  margin-top: rem(35);
+  @include mq("md") {
+    margin-top: rem(0);
+  }
+}
+
+.sub-campaign__content {
+  margin-top: rem(40);
+}
+
+.sub-campaign__pagenavi {
+  margin-top: rem(80);
+  @include mq("md") {
+    margin-top: rem(84);
+  }
+}

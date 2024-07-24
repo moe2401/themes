@@ -1,0 +1,72 @@
+@use "global" as *;
+
+.privacy-policy__inner.inner {
+  @include mq("md") {
+    max-width: rem(850);
+    width: 100%;
+  }
+}
+
+.privacy-policy__content {
+  @include mq("md") {
+    max-width: rem(800);
+    margin-right: auto;
+    margin-left: auto;
+  }
+}
+
+.privacy-policy__title {
+  font-size: rem(24);
+  font-weight: $medium;
+  font-family: $font-family-jp;
+  line-height: 1;
+  @include mq("md") {
+    font-size: rem(32);
+  }
+}
+
+.privacy-policy__wrap {
+  margin-top: rem(49);
+  line-height: 2;
+}
+
+.privacy-policy__wrap ol {
+  list-style: decimal;
+  margin-left: 1.5em;
+}
+
+.privacy-policy__box {
+  margin-top: rem(27);
+  color: $dark-green;
+  font-size: rem(16);
+}
+
+.privacy-policy__box:not(:first-child) {
+  margin-top: rem(30);
+}
+
+.privacy-policy__lists {
+  counter-reset: list-counter; // カウンターのリセット
+  list-style-type: none;
+  padding: 0;
+}
+
+.privacy-policy__list {
+  display: flex;
+  counter-increment: list-counter;
+  align-items: baseline;
+  margin-left: rem(5);
+}
+
+.privacy-policy__list:not(:first-child) {
+  margin-top: rem(2);
+}
+
+.privacy-policy__list::before {
+  content: counter(list-counter) ". ";
+  margin-right: 0.5em;
+}
+
+.privacy-policy__text:last-child {
+  margin-top: rem(30);
+}

@@ -1,0 +1,139 @@
+@use "global" as *;
+
+.about-us__title {
+  font-family: $font-family-en;
+  font-size: rem(40);
+  color: $green;
+  line-height: 1;
+  @include mq("md") {
+    font-size: rem(80);
+    line-height: 1.25;
+    margin-top: 0;
+    width: 100%;
+    color: $white;
+  }
+}
+
+.about-us__title.about-us__title--white {
+  color: $white;
+  position: absolute;
+  top: rem(22);
+  left: rem(23);
+  @include mq("md") {
+    position: relative;
+    top: rem(0);
+    left: rem(0);
+  }
+}
+
+.about-us__wrapper {
+  margin-top: rem(50);
+  @include mq("md") {
+    margin-top: rem(120);
+  }
+}
+
+.about-us__text-wrap {
+  margin-top: rem(16);
+  @include mq("md") {
+    margin-left: rem(24);
+    margin-top: 0;
+    width: 100%;
+  }
+}
+
+.about-us__text-wrap.about-us__text-wrap--margin {
+  @include mq("md") {
+    margin-top: rem(20);
+  }
+}
+
+.about-us__text {
+  font-size: rem(16);
+  font-family: $font-family-jp;
+  color: $dark-green;
+  line-height: 1.5;
+  @include mq("md") {
+    color: $white;
+  }
+}
+
+.about-us__text.about-us__text--margin {
+  margin-top: rem(40);
+}
+
+.about-us__img-wrap {
+  position: relative;
+}
+
+.about-us__img-left {
+  width: 37.101%;
+  position: absolute;
+  top: -13.4%;
+  @include mq("md") {
+    top: -12%;
+  }
+}
+
+.about-us__img-left.about-us__img-left--noShow {
+  display: none;
+  @include mq("md") {
+    display: block;
+  }
+}
+
+.about-us__img-left img {
+  width: 100%;
+  object-fit: cover;
+  aspect-ratio: 128 / 194;
+}
+
+.about-us__img-right {
+  margin-left: auto;
+  width: 81.449%;
+}
+
+.about-us__img-right.about-us__img-right--subPage {
+  width: 100%;
+  @include mq("md") {
+    margin-right: 0;
+    width: 81.449%;
+  }
+}
+
+.about-us__img-right img {
+  width: 100%;
+  object-fit: cover;
+  aspect-ratio: 281 / 186;
+}
+
+.about-us__contents {
+  margin-top: rem(55);
+  @include mq("md") {
+    margin-top: rem(0);
+    position: absolute;
+    display: flex;
+    max-width: rem(840);
+    width: 100%;
+    top: 57%;
+    left: 55.8%;
+    transform: translate(-50%, -50%);
+  }
+}
+
+.about-us__contents.about-us__contents--sub {
+  margin-top: rem(40);
+  @include mq("md") {
+    margin-top: rem(0);
+    top: 40%;
+    left: 57.8%;
+  }
+}
+
+.about-us__button {
+  margin-top: rem(28);
+  text-align: center;
+  @include mq("md") {
+    margin-top: rem(40);
+  }
+}

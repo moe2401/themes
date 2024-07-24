@@ -1,0 +1,178 @@
+@use "global" as *;
+
+.tab-info__menu {
+  display: flex;
+  justify-content: center;
+}
+
+.tab-info__menu-item {
+  padding: rem(10) rem(8);
+  max-width: rem(102);
+  width: 100%;
+  font-size: rem(14);
+  color: $green;
+  background-color: $light-green;
+  text-align: center;
+  cursor: pointer;
+  font-family: $font-family-jp;
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25);
+  @include mq("md") {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: rem(8);
+    line-height: 1;
+    padding: rem(13) rem(0);
+    max-width: rem(300);
+    font-size: rem(24);
+    text-align: right;
+  }
+}
+
+.tab-info__menu-item:not(:first-child) {
+  margin-left: rem(19);
+  @include mq("md") {
+    margin-left: rem(90);
+  }
+}
+
+.tab-info__menu-item.current {
+  color: $white;
+  background-color: $green;
+}
+
+.tab-info__menu-item:hover {
+  transition: .3s;
+  color: $white;
+  background-color: $green;
+}
+
+.tab-info__menu-item span {
+  align-items: center;
+  @include mq("md") {
+    display: flex;
+  }
+}
+
+.tab-info__menu-item:nth-child(1)span::before {
+  @include mq("md") {
+    content: "";
+    background-image: url(../images/sub/whale-green.svg);
+    width: rem(64);
+    height: rem(64);
+    background-repeat: no-repeat;
+    background-size: contain;
+    margin-right: rem(8);
+  }
+}
+
+.tab-info__menu-item:nth-child(2)span::before {
+  @include mq("md") {
+    content: "";
+    background-image: url(../images/sub/shark-green.svg);
+    width: rem(64);
+    height: rem(64);
+    background-repeat: no-repeat;
+    background-size: contain;
+    margin-right: rem(8);
+  }
+}
+
+.tab-info__menu-item:nth-child(3)span::before {
+  @include mq("md") {
+    content: "";
+    background-image: url(../images/sub/fish-green.svg);
+    width: rem(64);
+    height: rem(64);
+    background-repeat: no-repeat;
+    background-size: contain;
+    margin-right: rem(8);
+  }
+}
+
+//hoverした時
+.tab-info__menu-item:hover span::before {
+  @include mq("md") {
+    content: "";
+    background-image: url(../images/sub/whale-white.svg);
+    width: rem(64);
+    height: rem(64);
+    background-repeat: no-repeat;
+    background-size: contain;
+    margin-right: rem(8);
+  }
+}
+
+.tab-info__menu-item:nth-child(2):hover span::before {
+  @include mq("md") {
+    content: "";
+    background-image: url(../images/sub/shark-white.svg);
+    width: rem(64);
+    height: rem(64);
+    background-repeat: no-repeat;
+    background-size: contain;
+    margin-right: rem(8);
+  }
+}
+
+.tab-info__menu-item:nth-child(3):hover span::before {
+  @include mq("md") {
+    content: "";
+    background-image: url(../images/sub/fish-white.svg);
+    width: rem(64);
+    height: rem(64);
+    background-repeat: no-repeat;
+    background-size: contain;
+    margin-right: rem(8);
+  }
+}
+
+//クリック後
+.tab-info__menu-item.current span::before {
+  @include mq("md") {
+    content: "";
+    background-image: url(../images/sub/whale-white.svg);
+    width: rem(64);
+    height: rem(64);
+    background-repeat: no-repeat;
+    background-size: contain;
+    margin-right: rem(8);
+  }
+}
+
+.tab-info__menu-item.current:nth-child(2)span::before {
+  @include mq("md") {
+    content: "";
+    background-image: url(../images/sub/shark-white.svg);
+    width: rem(64);
+    height: rem(64);
+    background-repeat: no-repeat;
+    background-size: contain;
+    margin-right: rem(8);
+  }
+}
+
+.tab-info__menu-item.current:nth-child(3)span::before {
+  @include mq("md") {
+    content: "";
+    background-image: url(../images/sub/fish-white.svg);
+    width: rem(64);
+    height: rem(64);
+    background-repeat: no-repeat;
+    background-size: contain;
+    margin-right: rem(8);
+  }
+}
+
+.tab-info__content {
+  margin-top: rem(16);
+}
+
+.tab-info__content-item {
+  display: none;
+}
+
+.tab-info__content-item.current {
+  display: block;
+}

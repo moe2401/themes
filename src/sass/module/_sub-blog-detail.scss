@@ -1,0 +1,90 @@
+@use "global" as *;
+
+.sub-blog__time {
+  font-family: $font-family-en;
+  font-size: rem(14);
+  line-height: 1.2857;
+  color: $dark-green;
+}
+
+.sub-blog__category {
+  font-family: $font-family-jp;
+  font-size: rem(24);
+  font-weight: $medium;
+  line-height: 1;
+  color: $dark-green;
+  padding-bottom: rem(9);
+  border-bottom: 1px solid $green;
+  margin-top: rem(8);
+  @include mq("md") {
+    font-size: rem(32);
+  }
+}
+
+.sub-blog__img {
+  max-width: rem(345);
+  width: 100%;
+  margin-top: rem(24);
+  @include mq("md") {
+    max-width: rem(700);
+    margin-top: rem(40);
+  }
+}
+
+.sub-blog__img img {
+  width: 100%;
+  object-fit: cover;
+  aspect-ratio: 345 / 231;
+  @include mq("md") {
+    aspect-ratio: 700 / 468;
+  }
+}
+
+.sub-blog__bottom p {
+  font-family: $font-family-jp;
+  font-size: rem(16);
+  color: $black;
+  line-height: 1.5;
+}
+
+.sub-blog__bottom > * {
+  margin-top: rem(24);
+  @include mq("md") {
+    margin-top: rem(40);
+  }
+}
+
+.sub-blog__bottom p,
+.sub-blog__bottom ul {
+  margin-top: rem(24);
+  @include mq("md") {
+    margin-top: rem(40);
+  }
+}
+
+.sub-blog__bottom li {
+  position: relative;
+  font-family: $font-family-jp;
+  font-size: rem(16);
+  color: $black;
+  line-height: 1.5;
+  padding-left: rem(24);
+}
+
+.sub-blog__bottom li:not(:first-child) {
+  margin-top: rem(4);
+}
+
+.sub-blog__bottom li::before {
+  position: absolute;
+  left: 0;
+  top: rem(4);
+  content: "";
+  background-image: url(../images/sub/star-fish-green.png);
+  background-repeat: no-repeat;
+  background-size: contain;
+  display: inline-block;
+  width: rem(18);
+  height: rem(18);
+  margin-right: rem(9);
+}

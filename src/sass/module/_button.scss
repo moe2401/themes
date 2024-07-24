@@ -1,0 +1,102 @@
+@use "global" as *;
+
+.button {
+  position: relative;
+  width: rem(202);
+  font-size: rem(14);
+  font-family: $font-family-en;
+  background-color: $green;
+  color: $white;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  padding: rem(16) rem(10);
+  line-height: calc(22 / 14);
+  border: 1px solid $green;
+  z-index: 10;
+}
+
+.button.button--white {
+  background-color: $white;
+  color: $green;
+  border: 1px solid $white;
+}
+
+.button::after {
+  background-color: $white;
+  position: absolute;
+  top: 0;
+  left: 0;
+  content: "";
+  width: 100%;
+  height: 100%;
+  transform: scale(0, 1);
+  transform-origin: left top;
+  transition: 0.2s cubic-bezier(0.45, 0, 0.55, 1);
+  z-index: -1;
+}
+
+.button.button--white::after {
+  background-color: $green;
+}
+
+.button::before {
+  position: absolute;
+  content: "";
+  border: 1px solid $green;
+  top: rem(4);
+  right: rem(-4);
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
+
+.button.button--white::before {
+  border: 1px solid $white;
+}
+
+.button span {
+  display: inline-block;
+  position: relative;
+}
+
+.button span::after {
+  display: inline-block;
+  margin-left: rem(8);
+  content: "";
+  background-image: url(../images/common/button-arrow_1.svg);
+  width: rem(40);
+  height: rem(6);
+  background-repeat: no-repeat;
+  background-size: contain;
+  transform: scale(1.3);
+}
+
+.button.button--white span::after {
+  background-image: url(../images/common/button-arrow_2.svg);
+}
+
+.button:hover {
+  color: $green;
+}
+
+.button.button.button--white:hover {
+  color: $white;
+}
+
+.button:hover span::after {
+  content: "";
+  background-image: url(../images/common/button-arrow_2.svg);
+  width: rem(40);
+  height: rem(6);
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+.button:hover::after {
+  transform: scale(1, 1);
+}
+
+.button.button--white:hover span::after {
+  background-image: url(../images/common/button-arrow_1.svg);
+}

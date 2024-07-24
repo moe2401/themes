@@ -1,0 +1,139 @@
+@use "global" as *;
+
+.pagenavi {
+  clear: both;
+  text-align: center;
+}
+
+.pagenavi .wp-pagenavi {
+  margin: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  @include mq("md") {
+    justify-content: center;
+  }
+}
+
+.pagenavi .wp-pagenavi.wp-pagenavi--detail {
+  justify-content: center;
+}
+
+.pagenavi .wp-pagenavi a {
+  padding: rem(0) rem(3);
+  line-height: 1;
+  min-width: rem(38);
+  height: rem(38);
+  background-color: $white;
+  color: $green;
+  border: 1px solid $green;
+  transition: 0.3s;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: rem(12);
+  @include mq("md") {
+    // margin-left: rem(12);
+  }
+}
+
+.pagenavi .wp-pagenavi .u-desktop {
+  display: none;
+  @include mq("md") {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+.pagenavi .wp-pagenavi .current {
+  padding: rem(9) rem(3);
+  line-height: 1;
+  min-width: rem(38);
+  height: rem(38);
+  background-color: $green;
+  color: $white;
+  border: 1px solid $green;
+  transition: 0.3s;
+  cursor: pointer;
+  display: inline-block;
+  margin-left: rem(12);
+}
+
+.pagenavi .wp-pagenavi a:hover {
+  background-color: $green;
+  color: $white;
+}
+
+.pagenavi .wp-pagenavi .previouspostslink span,
+.pagenavi .wp-pagenavi .nextpostslink span {
+  position: relative;
+  display: block;
+  width: rem(11.6);
+  height: rem(22.2);
+}
+
+.pagenavi .wp-pagenavi .previouspostslink span::before,
+.pagenavi .wp-pagenavi .previouspostslink span::after,
+.pagenavi .wp-pagenavi .nextpostslink span::before,
+.pagenavi .wp-pagenavi .nextpostslink span::after {
+  position: absolute;
+  content: "";
+  top: calc(50% - rem(0.5));
+  width: rem(12);
+  height: rem(1);
+  background-color: $green;
+}
+
+.pagenavi .wp-pagenavi .previouspostslink:hover span::before,
+.pagenavi .wp-pagenavi .previouspostslink:hover span::after,
+.pagenavi .wp-pagenavi .nextpostslink:hover span::before,
+.pagenavi .wp-pagenavi .nextpostslink:hover span::after {
+  background-color: $white;
+}
+
+.pagenavi .wp-pagenavi .previouspostslink span::before {
+  left: 0;
+  transform: rotate(45deg);
+  transform-origin: rem(0.5) 50%;
+}
+
+.pagenavi .wp-pagenavi .previouspostslink span::after {
+  left: 0;
+  transform: rotate(-45deg);
+  transform-origin: rem(0.5) 50%;
+}
+
+.pagenavi .wp-pagenavi .previouspostslink {
+  margin-right: rem(28);
+  margin-left: 0;
+} 
+
+.pagenavi .wp-pagenavi .nextpostslink span::after {
+  right: 0;
+  transform: rotate(45deg);
+  transform-origin: calc(100% - 0.5px) 50%;
+}
+
+.pagenavi .wp-pagenavi .nextpostslink span::before {
+  right: 0;
+  transform: rotate(-45deg);
+  transform-origin: calc(100% - 0.5px) 50%;
+}
+
+.pagenavi .wp-pagenavi .nextpostslink {
+  margin-left: rem(40);
+}
+
+.pagenavi .wp-pagenavi .nextpostslink.nextpostslink--detail {
+  margin-left: rem(82);
+}
+
+.pagenavi .wp-pagenavi .previouspostslink.disabled::before,
+.pagenavi .wp-pagenavi .previouspostslink.disabled::after,
+.pagenavi .wp-pagenavi .nextpostslink.disabled::before,
+.pagenavi .wp-pagenavi .nextpostslink.disabled::after {
+  display: none; // 前後の記事が存在しない場合は擬似要素を非表示にする
+}
+
