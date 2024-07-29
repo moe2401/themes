@@ -50,8 +50,8 @@
         <img src="<?php echo get_theme_file_uri(); ?>/images/common/codeups.svg" alt="CodeUpsのロゴ" />
       </div>
       <div class="footer__sns">
-        <a href="#" class="footer__sns-icon"><img src="<?php echo get_theme_file_uri(); ?>/images/common/sns-icon_1.png" alt="facebookのアイコン" /></a>
-        <a href="#" class="footer__sns-icon"><img src="<?php echo get_theme_file_uri(); ?>/images/common/sns-icon_2.png" alt="インスタグラムのアイコン" /></a>
+        <a href="https://www.facebook.com" target=”_blank” class="footer__sns-icon"><img src="<?php echo get_theme_file_uri(); ?>/images/common/sns-icon_1.png" alt="facebookのアイコン" /></a>
+        <a href="https://www.instagram.com" target=”_blank” class="footer__sns-icon"><img src="<?php echo get_theme_file_uri(); ?>/images/common/sns-icon_2.png" alt="インスタグラムのアイコン" /></a>
       </div>
     </div>
 
@@ -166,7 +166,7 @@
               <a href="<?php echo get_permalink(get_page_by_path('terms-of-service')); ?>">利用規約</a>
             </div>
             <div class="nav-contents__title">
-              <a href="<?php echo get_permalink(get_page_by_path('contact')); ?>">お問合せ</a>
+              <a href="<?php echo get_permalink(get_page_by_path('contact')); ?>">お問い合わせ</a>
             </div>
           </li>
         </ul>

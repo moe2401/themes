@@ -6,30 +6,21 @@
       </div>
 
       <?php
-      // 必須 ここから
-      setPostViews(get_the_ID());
-      // 必須 ここまで
-
       $args = array(
         'post_type' => 'post',
         'posts_per_page' => 3,
-
-        // 必須 ここから
-        'orderby' => 'meta_value_num',
-        'meta_key' => 'post_views_count'
-        // 必須 ここまで
-
+        'orderby' => 'date',
+        'order' => 'DESC'
       );
+
       $the_query = new WP_Query($args);
       ?>
       <?php if ($the_query->have_posts()) : ?>
-
         <ul class="sub-blog__popular-cards popular-cards">
           <?php while ($the_query->have_posts()) : $the_query->the_post(); ?>
             <li class="popular-cards__item">
               <a href="<?php the_permalink(); ?>" class="popular-card">
                 <div class="popular-card__wrap">
-
                   <div class="popular-card__img">
                     <?php if (get_the_post_thumbnail()) : ?>
                       <img class="detail__thumbnail" src="<?php the_post_thumbnail_url("full"); ?>" alt="" />
@@ -65,17 +56,11 @@
         <h2 class="sub-blog__head-title">口コミ</h2>
       </div>
       <?php
-      // 必須 ここから
-      setPostViews(get_the_ID());
-      // 必須 ここまで
-
       $args = array(
         'post_type' => 'voice',
         'posts_per_page' => 1,
-        // 必須 ここから
-        'orderby' => 'meta_value_num',
-        'meta_key' => 'post_views_count'
-        // 必須 ここまで
+        'orderby' => 'date',
+        'order' => 'DESC'
       );
       $the_query = new WP_Query($args);
       ?>
@@ -117,6 +102,8 @@
           </div>
         <?php endwhile; ?>
         <?php wp_reset_postdata(); ?>
+      <?php else : ?>
+        <p>口コミが投稿されていません</p>
       <?php endif; ?>
     </div>
 

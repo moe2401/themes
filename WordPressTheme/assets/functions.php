@@ -42,7 +42,7 @@ function my_setup()
 }
 add_action('after_setup_theme', 'my_setup');
 
-// 人気記事投稿
+// --------------人気記事投稿-------------------------
 function getPostViews($postID)
 {
   $count_key = 'post_views_count';
@@ -50,11 +50,9 @@ function getPostViews($postID)
   if ($count == '') {
     delete_post_meta($postID, $count_key);
     add_post_meta($postID, $count_key, '0');
-    return '0 PV';
-    // return '0 View';
+    return '0 Views'; // 最初のreturnだけ残します
   }
-  return $count . ' PV';
-  // return $count.'Views';
+  return $count . ' Views'; // 'PV' を 'Views' に統一
 }
 
 function setPostViews($postID)
@@ -71,8 +69,8 @@ function setPostViews($postID)
   }
 }
 
+// Prevents WordPress from printing previous and next post links in the head
 remove_action('wp_head', 'adjacent_posts_rel_link_wp_head', 10, 0);
-
 
 /* ---------- 「投稿」の表記変更 ---------- */
 function Change_menulabel()
@@ -103,7 +101,8 @@ function Change_objectlabel()
 add_action('init', 'Change_objectlabel');
 add_action('admin_menu', 'Change_menulabel');
 
-// Contact Form 7で自動挿入されるPタグ、brタグを削除
+
+// -----------Contact Form 7で自動挿入されるPタグ、brタグを削除-------
 add_filter('wpcf7_autop_or_not', 'wpcf7_autop_return_false');
 function wpcf7_autop_return_false()
 {
@@ -111,7 +110,7 @@ function wpcf7_autop_return_false()
 }
 
 
-//thanksページへ遷移
+//--------------thanksページへ遷移---------------------
 add_action('wp_footer', 'add_thanks_wcf7');
 
 function add_thanks_wcf7()
@@ -125,17 +124,28 @@ location = 'http://localhost:10033/thanks/';
 EOD;
 }
 
-//campaignページ
+//-----------campaign,voiceページの投稿数-----------------
 function modify_campaign_query($query)
 {
-  if (!is_admin() && $query->is_main_query() && is_post_type_archive('campaign')) {
-    $query->set('posts_per_page', 4);
+  // 管理画面ではなく、メインクエリの場合
+  if (!is_admin() && $query->is_main_query()) {
+    // 「campaign」投稿タイプのアーカイブページの場合
+    if (is_post_type_archive('campaign')) {
+      $query->set('posts_per_page', 4);
+    }
+    // 「voice」投稿タイプのアーカイブページの場合
+    if (is_post_type_archive('voice')) {
+      $query->set('posts_per_page', 6);
+    }
   }
 }
+
+// pre_get_postsアクションフックにカスタム関数を追加
 add_action('pre_get_posts', 'modify_campaign_query');
 
 
-// Contact Form 7 セレクトボックスのカスタマイズ
+
+// ----------Contact Form 7 セレクトボックスのカスタマイズ------------
 function filter_wpcf7_form_tag($scanned_tag, $replace)
 {
 
@@ -171,3 +181,13 @@ function filter_wpcf7_form_tag($scanned_tag, $replace)
 }
 
 add_filter('wpcf7_form_tag', 'filter_wpcf7_form_tag', 11, 2);
+
+// -----------campaignの誤タクソノミー削除------------------
+function unregister_taxonomy_for_post_type()
+{
+  // 既に登録されているタクソノミーを解除する
+  unregister_taxonomy_for_object_type('voice_genre', 'campaign');
+}
+
+// initアクションフックに追加
+add_action('init', 'unregister_taxonomy_for_post_type');

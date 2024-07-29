@@ -103,7 +103,13 @@
                       </div>
                     </div>
                     <p class="voice-card__text">
-                      <?php the_content(); ?>
+                      <?php
+                      $content = get_the_content();
+                      $content = strip_tags($content); // HTMLタグを削除
+                      $content = str_replace(array("\r", "\n"), '', $content); // 改行を削除
+                      $limit = 169;
+                      echo mb_substr($content, 0, $limit);
+                      ?>
                     </p>
                   </div>
                 </div>

@@ -110,7 +110,6 @@ jQuery(function ($) {
       });
     }
   });
-  
   var speed = 700; // speed変数を定義
   var $elements = $(".information__img, .voice-card__img, .price__img");
   if ($elements.length > 0) {
@@ -208,6 +207,23 @@ jQuery(function ($) {
       activateTab("tab01"); // デフォルトタブ
     }
   });
+
+  // ページ内リンクをクリックした際のスクロール処理
+  // document.querySelectorAll('a[href^="information.html?id="]').forEach(anchor => {
+  //   anchor.addEventListener('click', function (e) {
+  //     e.preventDefault();
+
+  //     const targetId = this.getAttribute('href').split('=')[1];
+  //     const targetElement = document.getElementById(targetId);
+
+  //     if (targetElement) {
+  //       targetElement.scrollIntoView({ behavior: 'smooth' });
+
+  //       // URLのハッシュを更新してページ内リンクが正しく動作するようにする
+  //       history.pushState(null, null, `#${targetId}`);
+  //     }
+  //   });
+  // });
 
   //archive アーカイブ
   $(".js-drawer-accordion").on("click", function () {

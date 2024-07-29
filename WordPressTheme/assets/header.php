@@ -203,7 +203,7 @@
                   <a href="<?php echo get_permalink(get_page_by_path('terms-of-service')); ?>">利用規約</a>
                 </div>
                 <div class="nav-contents__title">
-                  <a href="<?php echo get_permalink(get_page_by_path('contact')); ?>">お問合せ</a>
+                  <a href="<?php echo get_permalink(get_page_by_path('contact')); ?>">お問い合わせ</a>
                 </div>
               </li>
             </ul>
