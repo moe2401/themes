@@ -14,8 +14,8 @@ if ($page_slug == 'privacy-policy') {
     <section class="sub-mv">
         <div class="sub-mv__inner">
             <picture class="sub-mv__img">
-                <source media="(max-width: 768px)" srcset="<?php echo get_theme_file_uri(); ?>/images/sub/site-map-sp-img.jpg" />
-                <img src="<?php echo get_theme_file_uri(); ?>/images/sub/site-map-pc-img.jpg" alt="たくさんの小魚が海の中を泳いでいる様子" />
+                <source media="(max-width: 768px)" srcset="<?php echo get_theme_file_uri(); ?>/assets/images/sub/site-map-sp-img.jpg" />
+                <img src="<?php echo get_theme_file_uri(); ?>/assets/images/sub/site-map-pc-img.jpg" alt="たくさんの小魚が海の中を泳いでいる様子" />
             </picture>
         </div>
         <div class="sub-mv__title-wrap sub-page-title">
@@ -54,8 +54,8 @@ if ($page_slug == 'privacy-policy') {
     <section class="sub-mv">
         <div class="sub-mv__inner">
             <picture class="sub-mv__img">
-                <source media="(max-width: 768px)" srcset="<?php echo get_theme_file_uri(); ?>/images/sub/site-map-sp-img.jpg" />
-                <img src="<?php echo get_theme_file_uri(); ?>/images/sub/site-map-pc-img.jpg" alt="たくさんの小魚が海の中を泳いでいる様子" />
+                <source media="(max-width: 768px)" srcset="<?php echo get_theme_file_uri(); ?>/assets/images/sub/site-map-sp-img.jpg" />
+                <img src="<?php echo get_theme_file_uri(); ?>/assets/images/sub/site-map-pc-img.jpg" alt="たくさんの小魚が海の中を泳いでいる様子" />
             </picture>
         </div>
         <div class="sub-mv__title-wrap sub-page-title">

@@ -42,14 +42,14 @@
 
   <!-- ページトップボタン -->
   <div class="page-top-button js-page-top">
-    <img src="<?php echo get_theme_file_uri(); ?>/images/common/page-top-button.png" alt="トップへ戻るボタン" />
+    <img src="<?php echo get_theme_file_uri(); ?>/assets/images/common/page-top-button.png" alt="トップへ戻るボタン" />
   </div>
 
   <header class="header js-header">
     <div class="header__inner">
       <h1 class="header__logo">
         <a href="<?php echo home_url('/'); ?>">
-          <img src="<?php echo get_theme_file_uri(); ?>/images/common/codeups.svg" alt="CodeUpsのロゴ" />
+          <img src="<?php echo get_theme_file_uri(); ?>/assets/images/common/codeups.svg" alt="CodeUpsのロゴ" />
         </a>
       </h1>
 

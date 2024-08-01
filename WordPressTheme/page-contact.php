@@ -4,8 +4,8 @@
   <section class="sub-mv">
     <div class="sub-mv__inner">
       <picture class="sub-mv__img">
-        <source media="(max-width: 768px)" srcset="<?php echo get_theme_file_uri(); ?>/images/sub/sub-contact-sp-img.jpg" />
-        <img src="<?php echo get_theme_file_uri(); ?>/images/sub/sub-contact-pc-img.jpg" alt="海岸に波が押し寄せている様子" />
+        <source media="(max-width: 768px)" srcset="<?php echo get_theme_file_uri(); ?>/assets/images/sub/sub-contact-sp-img.jpg" />
+        <img src="<?php echo get_theme_file_uri(); ?>/assets/images/sub/sub-contact-pc-img.jpg" alt="海岸に波が押し寄せている様子" />
       </picture>
     </div>
     <div class="sub-mv__title-wrap sub-page-title">

@@ -4,8 +4,8 @@
     <section class="sub-mv">
         <div class="sub-mv__inner">
             <picture class="sub-mv__img">
-                <source media="(max-width: 768px)" srcset="<?php echo get_theme_file_uri(); ?>/images/sub/sub-campaign-sp-img.jpg" />
-                <img src="<?php echo get_theme_file_uri(); ?>/images/sub/sub-campaign-pc-img.jpg" alt="2匹の黄色い魚が泳いでいる様子" />
+                <source media="(max-width: 768px)" srcset="<?php echo get_theme_file_uri(); ?>/assets/images/sub/sub-campaign-sp-img.jpg" />
+                <img src="<?php echo get_theme_file_uri(); ?>/assets/images/sub/sub-campaign-pc-img.jpg" alt="2匹の黄色い魚が泳いでいる様子" />
             </picture>
         </div>
         <div class="sub-mv__title-wrap sub-page-title">
@@ -82,7 +82,7 @@
                                         ?>
                                             <img src="<?php the_post_thumbnail_url('full'); ?>" alt="<?php echo esc_attr($alt_text); ?>">
                                         <?php else : ?>
-                                            <img src="<?php echo get_theme_file_uri(); ?>/images/common/no-image.jpg" alt="no-image" />
+                                            <img src="<?php echo get_theme_file_uri(); ?>/assets/images/common/no-image.jpg" alt="no-image" />
                                         <?php endif; ?>
                                     </div>
 

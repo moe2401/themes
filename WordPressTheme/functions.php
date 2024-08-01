@@ -14,7 +14,7 @@ function enqueue_custom_scripts_and_styles()
   wp_enqueue_style('swiper-css', 'https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css', array(), '8.0');
 
   // メインのスタイルシートの読み込み
-  wp_enqueue_style('main-style', get_template_directory_uri() . 'assets/css/style.css', array(), '1.0');
+  wp_enqueue_style('main-style', get_template_directory_uri() . '/assets/css/style.css', array(), '1.0');
 
   // jQueryの読み込み（WordPressのバージョンに注意）
   wp_deregister_script('jquery');
