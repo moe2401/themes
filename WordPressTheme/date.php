@@ -4,8 +4,8 @@
   <section class="sub-mv">
     <div class="sub-mv__inner">
       <picture class="sub-mv__img">
-        <source media="(max-width: 768px)" srcset="<?php echo get_theme_file_uri(); ?>/images/sub/sub-blog-sp-img.jpg" />
-        <img src="<?php echo get_theme_file_uri(); ?>/images/sub/sub-blog-pc-img.jpg" alt="2匹の黄色い魚が泳いでいる様子" />
+        <source media="(max-width: 768px)" srcset="<?php echo get_theme_file_uri(); ?>/assets/images/sub/sub-blog-sp-img.jpg" />
+        <img src="<?php echo get_theme_file_uri(); ?>/assets/images/sub/sub-blog-pc-img.jpg" alt="2匹の黄色い魚が泳いでいる様子" />
       </picture>
     </div>
     <div class="sub-mv__title-wrap sub-page-title">
@@ -67,7 +67,7 @@
                       <?php if (get_the_post_thumbnail()) : ?>
                         <img src="<?php the_post_thumbnail_url("full"); ?>" alt="ピンクのサンゴ礁の写真" />
                       <?php else : ?>
-                        <img src="<?php echo get_theme_file_uri(); ?>/images/common/no-image.jpg" alt="no-image" />
+                        <img src="<?php echo get_theme_file_uri(); ?>/assets/images/common/no-image.jpg" alt="no-image" />
                       <?php endif; ?>
                     </div>
                     <div class="blog-card__body">

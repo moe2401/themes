@@ -3,7 +3,7 @@
     <div class="contact__wrap">
       <div class="contact__info">
         <div class="contact__logo">
-          <img src="<?php echo get_theme_file_uri(); ?>/images/common/contact-logo.svg" alt="CodeUpsのロゴ" />
+          <img src="<?php echo get_theme_file_uri(); ?>/assets/images/common/contact-logo.svg" alt="CodeUpsのロゴ" />
         </div>
         <div class="contact__detail">
           <div class="contact__lists-wrap">
@@ -47,11 +47,11 @@
   <div class="footer__inner inner">
     <div class="footer__wrap">
       <div class="footer__logo">
-        <img src="<?php echo get_theme_file_uri(); ?>/images/common/codeups.svg" alt="CodeUpsのロゴ" />
+        <img src="<?php echo get_theme_file_uri(); ?>/assets/images/common/codeups.svg" alt="CodeUpsのロゴ" />
       </div>
       <div class="footer__sns">
-        <a href="https://www.facebook.com" target=”_blank” class="footer__sns-icon"><img src="<?php echo get_theme_file_uri(); ?>/images/common/sns-icon_1.png" alt="facebookのアイコン" /></a>
-        <a href="https://www.instagram.com" target=”_blank” class="footer__sns-icon"><img src="<?php echo get_theme_file_uri(); ?>/images/common/sns-icon_2.png" alt="インスタグラムのアイコン" /></a>
+        <a href="https://www.facebook.com" target=”_blank” class="footer__sns-icon"><img src="<?php echo get_theme_file_uri(); ?>/assets/images/common/sns-icon_1.png" alt="facebookのアイコン" /></a>
+        <a href="https://www.instagram.com" target=”_blank” class="footer__sns-icon"><img src="<?php echo get_theme_file_uri(); ?>/assets/images/common/sns-icon_2.png" alt="インスタグラムのアイコン" /></a>
       </div>
     </div>
 

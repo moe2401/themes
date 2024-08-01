@@ -98,7 +98,7 @@
                         ?>
                           <img src="<?php the_post_thumbnail_url("full"); ?>" alt="<?php echo esc_attr($alt_text); ?>"> <!-- 代替テキストをalt属性に設定 -->
                         <?php else : ?>
-                          <img src="<?php echo get_theme_file_uri(); ?>/images/common/no-image.jpg" alt="no-image" />
+                          <img src="<?php echo get_theme_file_uri(); ?>/assets/images/common/no-image.jpg" alt="no-image" />
                         <?php endif; ?>
                       </div>
                     </div>

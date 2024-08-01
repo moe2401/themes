@@ -141,15 +141,15 @@
         <div class="about-us__img-wrap">
           <div class="about-us__img-left">
             <picture>
-              <source media="(max-width: 768px)" srcset="<?php echo get_theme_file_uri(); ?>/images/common/about-us_1.jpg" />
-              <img src="<?php echo get_theme_file_uri(); ?>/images/common/about-us-pc_1.jpg" alt="赤い屋根の上にいる赤いシーサー" />
+              <source media="(max-width: 768px)" srcset="<?php echo get_theme_file_uri(); ?>/assets/images/common/about-us_1.jpg" />
+              <img src="<?php echo get_theme_file_uri(); ?>/assets/images/common/about-us-pc_1.jpg" alt="赤い屋根の上にいる赤いシーサー" />
             </picture>
           </div>
 
           <div class="about-us__img-right">
             <picture>
-              <source media="(max-width: 768px)" srcset="<?php echo get_theme_file_uri(); ?>/images/common/about-us_2.jpg" />
-              <img src="<?php echo get_theme_file_uri(); ?>/images/common/about-us-pc_2.jpg" alt="2匹の黄色の魚が泳いでいる様子" />
+              <source media="(max-width: 768px)" srcset="<?php echo get_theme_file_uri(); ?>/assets/images/common/about-us_2.jpg" />
+              <img src="<?php echo get_theme_file_uri(); ?>/assets/images/common/about-us-pc_2.jpg" alt="2匹の黄色の魚が泳いでいる様子" />
             </picture>
           </div>
         </div>
@@ -185,7 +185,7 @@
 
       <div class="information__wrap">
         <div class="information__img">
-          <img src="<?php echo get_theme_file_uri(); ?>/images/common/information.jpg" alt="3匹の黄色の魚が海の中を泳いでいる様子" />
+          <img src="<?php echo get_theme_file_uri(); ?>/assets/images/common/information.jpg" alt="3匹の黄色の魚が海の中を泳いでいる様子" />
         </div>
 
         <div class="information__body">
@@ -235,7 +235,7 @@
                   <?php if (get_the_post_thumbnail()) : ?>
                     <img src="<?php the_post_thumbnail_url('full'); ?>" alt="<?php the_title(); ?>" />
                   <?php else : ?>
-                    <img src="<?php echo get_theme_file_uri(); ?>/images/common/no-image.jpg" alt="no-image" />
+                    <img src="<?php echo get_theme_file_uri(); ?>/assets/images/common/no-image.jpg" alt="no-image" />
                   <?php endif; ?>
                 </div>
                 <div class="blog-card__body">
@@ -336,7 +336,7 @@
                       ?>
                         <img src="<?php the_post_thumbnail_url("full"); ?>" alt="<?php echo esc_attr($alt_text); ?>">
                       <?php else : ?>
-                        <img src="<?php echo get_theme_file_uri(); ?>/images/common/no-image.jpg" alt="no-image" />
+                        <img src="<?php echo get_theme_file_uri(); ?>/assets/images/common/no-image.jpg" alt="no-image" />
                       <?php endif; ?>
                     </div>
                   </div>
@@ -372,8 +372,8 @@
 
       <div class="price__wrap">
         <picture class="price__img">
-          <source media="(max-width: 767px)" srcset="<?php echo get_theme_file_uri(); ?>/images/common/price-sp.jpg" />
-          <img src="<?php echo get_theme_file_uri(); ?>/images/common/price-pc.jpg" alt="たくさんの赤い小魚が海の中を泳いでいる様子" />
+          <source media="(max-width: 767px)" srcset="<?php echo get_theme_file_uri(); ?>/assets/images/common/price-sp.jpg" />
+          <img src="<?php echo get_theme_file_uri(); ?>/assets/images/common/price-pc.jpg" alt="たくさんの赤い小魚が海の中を泳いでいる様子" />
         </picture>
 
 
