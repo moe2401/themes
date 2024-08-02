@@ -23,12 +23,9 @@ if ($page_slug == 'privacy-policy') {
         </div>
     </section>
 
-    <div class="breadcrumb layout-breadcrumb decoration">
-        <div class="breadcrumb__inner inner">
-            <span><a href="<?php echo home_url(); ?>"><span>TOP</span></a></span>&nbsp;&gt;&nbsp;
-            <span><span class="breadcrumb__current-item">プライバシーポリシー</span></span>
-        </div>
-    </div>
+    <!-- パンクズ -->
+    <?php get_template_part('inc/breadcrumb'); ?>
+
     <div class="privacy-policy layout-privacy-policy">
         <div class="privacy-policy__inner inner">
             <div class="privacy-policy__content">
@@ -63,12 +60,9 @@ if ($page_slug == 'privacy-policy') {
         </div>
     </section>
 
-    <div class="breadcrumb layout-breadcrumb decoration">
-        <div class="breadcrumb__inner inner">
-            <span><a href="<?php echo home_url(); ?>"><span>TOP</span></a></span>&nbsp;&gt;&nbsp;
-            <span><span class="breadcrumb__current-item">利用規約</span></span>
-        </div>
-    </div>
+    <!-- パンクズ -->
+    <?php get_template_part('inc/breadcrumb'); ?>
+
     <div class="terms-of-service layout-terms-of-service">
         <div class="terms-of-service__inner inner">
             <div class="terms-of-service__content">

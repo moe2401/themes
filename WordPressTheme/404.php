@@ -1,17 +1,7 @@
 <?php get_header(); ?>
 
 <!-- パンクズ -->
-<div class="breadcrumb breadcrumb--white layout-breadcrumb decoration">
-  <div class="breadcrumb__inner inner">
-    <?php if (function_exists('bcn_display')) { ?>
-      <div class="about__breadcrumb">
-        <div class="breadcrumb" vocab="http://schema.org/" typeof="BreadcrumbList">
-          <?php bcn_display(); ?>
-        </div>
-      </div>
-    <?php } ?>
-  </div>
-</div>
+<?php get_template_part('inc/breadcrumb'); ?>
 
 <div class="error layout-error">
   <div class="error__inner inner">

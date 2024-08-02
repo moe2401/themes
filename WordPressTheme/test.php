@@ -1,4 +1,4 @@
-            <form action="/contact/#wpcf7-f185-o1" method="post" class="wpcf7-form init" aria-label="コンタクトフォーム" novalidate="novalidate" data-status="init">
+            <!-- <form action="/contact/#wpcf7-f185-o1" method="post" class="wpcf7-form init" aria-label="コンタクトフォーム" novalidate="novalidate" data-status="init">
               <dl class="contact-form__wrap">
                 <div class="contact-form__label-wrap">
                   <dt class="contact-form__label">
@@ -270,4 +270,4 @@
                 <span class="wpcf7-spinner"></span>
                 <span class="button__arrow"></span>
               </span>
-            </div>
+            </div> -->

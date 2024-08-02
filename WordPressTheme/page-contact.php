@@ -14,17 +14,7 @@
   </section>
 
   <!-- パンクズ -->
-  <div class="breadcrumb layout-breadcrumb decoration">
-    <div class="breadcrumb__inner inner">
-      <?php if (function_exists('bcn_display')) { ?>
-        <div class="about__breadcrumb">
-          <div class="breadcrumb" vocab="http://schema.org/" typeof="BreadcrumbList">
-            <?php bcn_display(); ?>
-          </div>
-        </div>
-      <?php } ?>
-    </div>
-  </div>
+  <?php get_template_part('inc/breadcrumb'); ?>
 
   <div class="sub-contact layout-sub-contact">
     <div class="sub-contact__inner inner">

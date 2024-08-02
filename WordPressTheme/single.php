@@ -7,8 +7,8 @@
       <section class="sub-mv">
         <div class="sub-mv__inner">
           <picture class="sub-mv__img">
-            <source media="(max-width: 768px)" srcset="<?php echo get_theme_file_uri(); ?>/images/sub/sub-blog-sp-img.jpg" />
-            <img src="<?php echo get_theme_file_uri(); ?>/images/sub/sub-blog-pc-img.jpg" alt="2匹の黄色い魚が泳いでいる様子" />
+            <source media="(max-width: 768px)" srcset="<?php echo get_theme_file_uri(); ?>/assets/images/sub/sub-blog-sp-img.jpg" />
+            <img src="<?php echo get_theme_file_uri(); ?>/assets/images/sub/sub-blog-pc-img.jpg" alt="2匹の黄色い魚が泳いでいる様子" />
           </picture>
         </div>
         <div class="sub-mv__title-wrap sub-page-title">
@@ -17,17 +17,7 @@
       </section>
 
       <!-- パンクズ -->
-      <div class="breadcrumb layout-breadcrumb decoration">
-        <div class="breadcrumb__inner inner">
-          <?php if (function_exists('bcn_display')) { ?>
-            <div class="about__breadcrumb">
-              <div class="breadcrumb" vocab="http://schema.org/" typeof="BreadcrumbList">
-                <?php bcn_display(); ?>
-              </div>
-            </div>
-          <?php } ?>
-        </div>
-      </div>
+      <?php get_template_part('inc/breadcrumb'); ?>
 
       <section class="sub-blog layout-sub-blog">
         <div class="sub-blog__inner inner">
@@ -48,7 +38,7 @@
                   <?php if (get_the_post_thumbnail()) : ?>
                     <img src="<?php the_post_thumbnail_url("full"); ?>" alt="<?php the_title(); ?>のアイキャッチ画像" />
                   <?php else : ?>
-                    <img src="<?php echo get_theme_file_uri(); ?>/images/common/no-image.jpg" alt="no-image" />
+                    <img src="<?php echo get_theme_file_uri(); ?>/assets/images/common/no-image.jpg" alt="no-image" />
                   <?php endif; ?>
                 </div>
               </div>

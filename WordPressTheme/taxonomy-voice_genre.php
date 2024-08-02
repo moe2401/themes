@@ -4,8 +4,8 @@
     <section class="sub-mv">
         <div class="sub-mv__inner">
             <picture class="sub-mv__img">
-                <source media="(max-width: 768px)" srcset="<?php echo get_theme_file_uri(); ?>/images/sub/sub-voice-sp-img.jpg" />
-                <img src="<?php echo get_theme_file_uri(); ?>/images/sub/sub-voice-pc-img.jpg" alt="5人のダイバーが泳いでいる様子" />
+                <source media="(max-width: 768px)" srcset="<?php echo get_theme_file_uri(); ?>/assets/images/sub/sub-voice-sp-img.jpg" />
+                <img src="<?php echo get_theme_file_uri(); ?>/assets/images/sub/sub-voice-pc-img.jpg" alt="5人のダイバーが泳いでいる様子" />
             </picture>
         </div>
         <div class="sub-mv__title-wrap sub-page-title">
@@ -13,21 +13,8 @@
         </div>
     </section>
 
-    <div class="breadcrumb layout-breadcrumb decoration">
-        <div class="breadcrumb__inner inner">
-            <!-- Breadcrumb NavXTで出力される部分 ここから -->
-            <span>
-                <a href="./index.html">
-                    <span>TOP</span>
-                </a>
-            </span>
-            &nbsp;&gt;&nbsp;
-            <span>
-                <span class="breadcrumb__current-item">お客さまの声</span>
-            </span>
-            <!-- Breadcrumb NavXTで出力される部分 ここまで -->
-        </div>
-    </div>
+    <!-- パンクズ -->
+    <?php get_template_part('inc/breadcrumb'); ?>
 
     <div class="sub-voice layout-sub-voice">
         <div class="sub-voice__inner inner">
@@ -100,7 +87,7 @@
                                                 ?>
                                                     <img src="<?php the_post_thumbnail_url("full"); ?>" alt="<?php echo esc_attr($alt_text); ?>"> <!-- 代替テキストをalt属性に設定 -->
                                                 <?php else : ?>
-                                                    <img src="<?php echo get_theme_file_uri(); ?>/images/common/no-image.jpg" alt="no-image" />
+                                                    <img src="<?php echo get_theme_file_uri(); ?>/assets/images/common/no-image.jpg" alt="no-image" />
                                                 <?php endif; ?>
                                             </div>
                                         </div>
