@@ -31,6 +31,7 @@
                     if (!empty($taxonomy_terms) && !is_wp_error($taxonomy_terms)) {
                         foreach ($taxonomy_terms as $term) {
                             $active_class = is_tax('voice_genre', $term->slug) ? 'is-active' : '';
+
                             echo '<li class="tab__menu-item ' . $active_class . '">';
                             echo '<a href="' . get_term_link($term) . '">' . esc_html($term->name) . '</a>';
                             echo '</li>';
