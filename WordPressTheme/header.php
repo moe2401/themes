@@ -7,9 +7,9 @@
   <meta name="format-detection" content="telephone=no" />
   <meta name="robots" content="noindex" />
   <?php wp_head(); ?>
-  <!-- <?php if (is_404()) : ?>
+  <?php if (is_404()) : ?>
     <meta http-equiv="refresh" content=" 3; url=<?php echo esc_url(home_url("")); ?>">
-  <?php endif; ?> -->
+  <?php endif; ?>
 </head>
 
 <body>
@@ -57,28 +57,28 @@
       <nav class="header__nav">
         <ul class="header__nav-items">
           <li class="header__nav-item">
-            <a href="<?php echo get_post_type_archive_link('campaign'); ?>">Campaign<span>キャンペーン</span></a>
+            <a href="<?php echo esc_url(home_url('/campaign/')); ?>">Campaign<span>キャンペーン</span></a>
           </li>
           <li class="header__nav-item">
-            <a href="<?php echo get_permalink(get_page_by_path('about-us')); ?>">About us<span>私たちについて</span></a>
+            <a href="<?php echo esc_url(home_url('/about-us/')); ?>">About us<span>私たちについて</span></a>
           </li>
           <li class="header__nav-item">
-            <a href="<?php echo get_permalink(get_page_by_path('information')); ?>">Information<span>ダイビング情報</span></a>
+            <a href="<?php echo esc_url(home_url('/information/')); ?>">Information<span>ダイビング情報</span></a>
           </li>
           <li class="header__nav-item">
-            <a href="<?php echo get_permalink(get_option('page_for_posts')); ?>">Blog<span>ブログ</span></a>
+            <a href="<?php echo esc_url(home_url('/blog/')); ?>">Blog<span>ブログ</span></a>
           </li>
           <li class="header__nav-item">
-            <a href="<?php echo get_post_type_archive_link('voice'); ?>">Voice<span>お客様の声</span></a>
+            <a href="<?php echo esc_url(home_url('/voice/')); ?>">Voice<span>お客様の声</span></a>
           </li>
           <li class="header__nav-item">
-            <a href="<?php echo get_permalink(get_page_by_path('price')); ?>">Price<span>料金一覧</span></a>
+            <a href="<?php echo esc_url(home_url('/price/')); ?>">Price<span>料金一覧</span></a>
           </li>
           <li class="header__nav-item">
-            <a href="<?php echo get_permalink(get_page_by_path('faq')); ?>">FAQ<span>よくある質問</span></a>
+            <a href="<?php echo esc_url(home_url('/faq/')); ?>">FAQ<span>よくある質問</span></a>
           </li>
           <li class="header__nav-item">
-            <a href="<?php echo get_permalink(get_page_by_path('contact')); ?>">Contact<span>お問合せ</span></a>
+            <a href="<?php echo esc_url(home_url('/contact/')); ?>">Contact<span>お問合せ</span></a>
           </li>
         </ul>
       </nav>
@@ -95,47 +95,39 @@
             <ul class="nav-contents__contents">
               <li class="nav-contents__group">
                 <div class="nav-contents__title">
-                  <a href="<?php echo get_post_type_archive_link('campaign'); ?>">キャンペーン</a>
+                  <a href="<?php echo esc_url(home_url('/campaign/')); ?>">キャンペーン</a>
                 </div>
                 <div>
                   <ul class="nav-contents__items">
                     <li class="nav-contents__item">
+                    <li class="nav-contents__item">
                       <?php
                       $license_term = get_term_by('slug', 'campaign_cat_0', 'campaign_genre');
-                      if ($license_term && !is_wp_error($license_term)) {
-                        $link = get_term_link($license_term);
-                        echo '<a href="' . esc_url($link) . '">ライセンス取得</a>';
-                      } else {
-                        echo '<a href="#">ライセンス取得</a>';
-                      }
                       ?>
+                      <a href="<?= $license_term && !is_wp_error($license_term) ? esc_url(get_term_link($license_term)) : '#' ?>">
+                        ライセンス取得
+                      </a>
                     </li>
                     <li class="nav-contents__item">
                       <?php
                       $license_term = get_term_by('slug', 'campaign_cat_1', 'campaign_genre');
-                      if ($license_term && !is_wp_error($license_term)) {
-                        $link = get_term_link($license_term);
-                        echo '<a href="' . esc_url($link) . '">貸切体験ダイビング</a>';
-                      } else {
-                        echo '<a href="#">貸切体験ダイビング</a>';
-                      }
                       ?>
+                      <a href="<?= $license_term && !is_wp_error($license_term) ? esc_url(get_term_link($license_term)) : '#' ?>">
+                        貸切体験ダイビング
+                      </a>
                     </li>
                     <li class="nav-contents__item">
                       <?php
                       $license_term = get_term_by('slug', 'campaign_cat_2', 'campaign_genre');
-                      if ($license_term && !is_wp_error($license_term)) {
-                        $link = get_term_link($license_term);
-                        echo '<a href="' . esc_url($link) . '">ナイトダイビング</a>';
-                      } else {
-                        echo '<a href="#">ナイトダイビング</a>';
-                      }
                       ?>
+                      <a href="<?= $license_term && !is_wp_error($license_term) ? esc_url(get_term_link($license_term)) : '#' ?>">
+                        ナイトダイビング
+                      </a>
                     </li>
                   </ul>
                 </div>
                 <div class="nav-contents__title">
-                  <a href="<?php echo get_permalink(get_page_by_path('about-us')); ?>">私たちについて</a>
+                  <a href="<?php echo esc_url(home_url('/about-us/')); ?>">私たちについて</a>
                 </div>
               </li>
             </ul>
@@ -143,20 +135,20 @@
             <ul class="nav-contents__contents">
               <li class="nav-contents__group">
                 <div class="nav-contents__title">
-                  <a href="<?php echo get_post_type_archive_link('voice'); ?>">お客様の声</a>
+                  <a href="<?php echo esc_url(home_url('/voice/')); ?>">お客様の声</a>
                 </div>
                 <div class="nav-contents__title">
-                  <a href="<?php echo get_permalink(get_page_by_path('price')); ?>">料金一覧</a>
+                  <a href="<?php echo esc_url(home_url('/price/')); ?>">料金一覧</a>
                 </div>
                 <ul class="nav-contents__items">
                   <li class="nav-contents__item">
-                    <a href="<?php echo get_permalink(get_page_by_path('price')); ?>">ライセンス講習</a>
+                    <a href="<?php echo esc_url(home_url('/price/')); ?>">ライセンス講習</a>
                   </li>
                   <li class="nav-contents__item">
-                    <a href="<?php echo get_permalink(get_page_by_path('price')); ?>">体験ダイビング</a>
+                    <a href="<?php echo esc_url(home_url('/price/')); ?>">体験ダイビング</a>
                   </li>
                   <li class="nav-contents__item">
-                    <a href="<?php echo get_permalink(get_page_by_path('price')); ?>">ファンダイビング</a>
+                    <a href="<?php echo esc_url(home_url('/price/')); ?>">ファンダイビング</a>
                   </li>
                 </ul>
               </li>
@@ -165,25 +157,25 @@
             <ul class="nav-contents__contents">
               <li class="nav-contents__group">
                 <div class="nav-contents__title">
-                  <a href="<?php echo get_permalink(get_page_by_path('information')); ?>">ダイビング情報</a>
+                  <a href="<?php echo esc_url(home_url('/information/')); ?>">ダイビング情報</a>
                 </div>
                 <div>
                   <ul class="nav-contents__items">
                     <li class="nav-contents__item">
-                      <a href="<?php echo esc_url(get_permalink(get_page_by_path('information'))); ?>?id=tab01">ライセンス講習</a>
+                      <a href="<?php echo esc_url(home_url('/information/')); ?>?id=tab01">ライセンス講習</a>
                     </li>
 
                     <li class="nav-contents__item">
-                      <a href="<?php echo esc_url(get_permalink(get_page_by_path('information'))); ?>?id=tab03">体験ダイビング</a>
+                      <a href="<?php echo esc_url(home_url('/information/')); ?>?id=tab03">体験ダイビング</a>
                     </li>
 
                     <li class="nav-contents__item">
-                      <a href="<?php echo esc_url(get_permalink(get_page_by_path('information'))); ?>?id=tab02">ファンダイビング</a>
+                      <a href="<?php echo esc_url(home_url('/information/')); ?>?id=tab02">ファンダイビング</a>
                     </li>
                   </ul>
                 </div>
                 <div class="nav-contents__title">
-                  <a href="<?php echo get_permalink(get_option('page_for_posts')); ?>">ブログ</a>
+                  <a href="<?php echo esc_url(home_url('/blog/')); ?>">ブログ</a>
                 </div>
               </li>
             </ul>
@@ -191,19 +183,19 @@
             <ul class="nav-contents__contents">
               <li class="nav-contents__group">
                 <div class="nav-contents__title">
-                  <a href="<?php echo get_permalink(get_page_by_path('faq')); ?>">よくある質問</a>
+                  <a href="<?php echo esc_url(home_url('/faq/')); ?>">よくある質問</a>
                 </div>
                 <div class="nav-contents__title">
-                  <a href="<?php echo get_permalink(get_page_by_path('sitemap')); ?>">サイトマップ</a>
+                  <a href="<?php echo esc_url(home_url('/sitemap/')); ?>">サイトマップ</a>
                 </div>
                 <div class="nav-contents__title">
-                  <a href="<?php echo get_permalink(get_page_by_path('privacy-policy')); ?>">プライバシー<br class="u-mobile" />ポリシー</a>
+                  <a href="<?php echo esc_url(home_url('/privacy-policy/')); ?>">プライバシー<br class="u-mobile" />ポリシー</a>
                 </div>
                 <div class="nav-contents__title">
-                  <a href="<?php echo get_permalink(get_page_by_path('terms-of-service')); ?>">利用規約</a>
+                  <a href="<?php echo esc_url(home_url('/terms-of-service/')); ?>">利用規約</a>
                 </div>
                 <div class="nav-contents__title">
-                  <a href="<?php echo get_permalink(get_page_by_path('contact')); ?>">お問い合わせ</a>
+                  <a href="<?php echo esc_url(home_url('/contact/')); ?>">お問い合わせ</a>
                 </div>
               </li>
             </ul>

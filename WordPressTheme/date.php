@@ -55,7 +55,7 @@
                   <a href="<?php the_permalink(); ?>" class="blog-card">
                     <div class="blog-card__img blog-card__img--animation">
                       <?php if (get_the_post_thumbnail()) : ?>
-                        <img src="<?php the_post_thumbnail_url("full"); ?>" alt="ピンクのサンゴ礁の写真" />
+                        <img src="<?php the_post_thumbnail_url("full"); ?>" alt="<?php echo esc_attr(get_post_meta(get_post_thumbnail_id(), '_wp_attachment_image_alt', true)); ?>" />
                       <?php else : ?>
                         <img src="<?php echo get_theme_file_uri(); ?>/assets/images/common/no-image.jpg" alt="no-image" />
                       <?php endif; ?>
@@ -69,11 +69,8 @@
                       </div>
                       <p class="blog-card__text">
                         <?php
-                        $content = get_the_content();
-                        $content = strip_tags($content); // HTMLタグを削除
-                        $content = str_replace(array("\r", "\n"), '', $content); // 改行を削除
-                        $limit = 85; // 約5行分の文字数（調整が必要な場合があります）
-                        echo mb_substr($content, 0, $limit);
+                        $content = mb_substr(strip_tags(get_the_content()), 0, 86);
+                        echo $content;
                         ?>
                       </p>
                     </div>
@@ -96,7 +93,7 @@
         <?php endif; ?>
         <?php wp_reset_postdata(); ?>
         </div>
-        <?php get_sidebar(); ?>
+        <?php get_template_part('inc/sidebar'); ?>
       </div>
 
     </div>

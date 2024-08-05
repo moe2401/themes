@@ -5,11 +5,11 @@
         <div class="sub-mv__inner">
             <picture class="sub-mv__img">
                 <source media="(max-width: 768px)" srcset="<?php echo get_theme_file_uri(); ?>/assets/images/sub/sub-voice-sp-img.jpg" />
-                <img src="<?php echo get_theme_file_uri(); ?>/assets/images/sub/sub-voice-pc-img.jpg" alt="5人のダイバーが泳いでいる様子" />
+                <img src="<?php echo get_theme_file_uri(); ?>/assets/images/sub/sub-voice-pc-img.jpg" alt="5人のダイバーが泳いでいる様子>" />
             </picture>
         </div>
         <div class="sub-mv__title-wrap sub-page-title">
-            <h1 class="sub-page-title__main"><?php single_term_title(); ?></h1>
+            <h1 class="sub-page-title__main">Voice</h1>
         </div>
     </section>
 
@@ -23,21 +23,22 @@
                     <li class="tab__menu-item <?php echo is_post_type_archive('voice') ? 'is-active' : ''; ?>">
                         <a href="<?php echo get_post_type_archive_link('voice'); ?>">ALL</a>
                     </li>
+
                     <?php
                     $taxonomy_terms = get_terms(array(
                         'taxonomy' => 'voice_genre',
-                        'hide_empty' => false,
+                        'hide_empty' => false
                     ));
-                    if (!empty($taxonomy_terms) && !is_wp_error($taxonomy_terms)) {
-                        foreach ($taxonomy_terms as $term) {
-                            $active_class = is_tax('voice_genre', $term->slug) ? 'is-active' : '';
-
-                            echo '<li class="tab__menu-item ' . $active_class . '">';
-                            echo '<a href="' . get_term_link($term) . '">' . esc_html($term->name) . '</a>';
-                            echo '</li>';
-                        }
-                    }
                     ?>
+
+                    <?php if (!empty($taxonomy_terms) && !is_wp_error($taxonomy_terms)) : ?>
+                        <?php foreach ($taxonomy_terms as $term) : ?>
+                            <?php $active_class = is_tax('voice_genre', $term->slug) ? 'is-active' : ''; ?>
+                            <li class="tab__menu-item <?php echo $active_class; ?>">
+                                <a href="<?php echo get_term_link($term); ?>"><?php echo esc_html($term->name); ?></a>
+                            </li>
+                        <?php endforeach; ?>
+                    <?php endif; ?>
                 </ul>
             </div>
 
@@ -108,12 +109,9 @@
             <div class="sub-campaign__pagenavi pagenavi">
                 <div class="pagenavi__inner">
                     <div class="wp-pagenavi" role="navigation">
-                        <!-- <a class="previouspostslink" rel="prev" href="#"
-                      ><span></span
-                    ></a> -->
                         <?php wp_pagenavi(); ?>
                     </div>
-                    <!-- WP-PageNaviで出力される部分 ここまで -->
+
                 </div>
             </div>
         </div>

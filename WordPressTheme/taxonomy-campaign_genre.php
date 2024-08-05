@@ -22,20 +22,22 @@
                 <li class="tab__menu-item <?php echo is_post_type_archive('campaign') ? 'is-active' : ''; ?>">
                     <a href="<?php echo get_post_type_archive_link('campaign'); ?>">ALL</a>
                 </li>
+
                 <?php
                 $taxonomy_terms = get_terms(array(
                     'taxonomy' => 'campaign_genre',
-                    'hide_empty' => false,
+                    'hide_empty' => false
                 ));
-                if (!empty($taxonomy_terms) && !is_wp_error($taxonomy_terms)) {
-                    foreach ($taxonomy_terms as $term) {
-                        $active_class = is_tax('campaign_genre', $term->slug) ? 'is-active' : '';
-                        echo '<li class="tab__menu-item ' . esc_attr($active_class) . '">';
-                        echo '<a href="' . esc_url(get_term_link($term)) . '">' . esc_html($term->name) . '</a>';
-                        echo '</li>';
-                    }
-                }
                 ?>
+
+                <?php if (!empty($taxonomy_terms) && !is_wp_error($taxonomy_terms)) : ?>
+                    <?php foreach ($taxonomy_terms as $term) : ?>
+                        <?php $active_class = is_tax('campaign_genre', $term->slug) ? 'is-active' : ''; ?>
+                        <li class="tab__menu-item <?php echo $active_class; ?>">
+                            <a href="<?php echo get_term_link($term); ?>"><?php echo esc_html($term->name); ?></a>
+                        </li>
+                    <?php endforeach; ?>
+                <?php endif; ?>
             </ul>
 
             <div class="sub-campaign__content">
@@ -66,11 +68,8 @@
                             <li class="sub-campaign__item">
                                 <div class="campaign-card campaign-card--large">
                                     <div class="campaign-card__img">
-                                        <?php if (has_post_thumbnail()) :
-                                            $thumbnail_id = get_post_thumbnail_id();
-                                            $alt_text = get_post_meta($thumbnail_id, '_wp_attachment_image_alt', true);
-                                        ?>
-                                            <img src="<?php the_post_thumbnail_url('full'); ?>" alt="<?php echo esc_attr($alt_text); ?>">
+                                        <?php if (has_post_thumbnail()) : ?>
+                                            <img src="<?php the_post_thumbnail_url('full'); ?>" alt="<?php echo esc_attr(get_post_meta(get_post_thumbnail_id(), '_wp_attachment_image_alt', true)); ?>">
                                         <?php else : ?>
                                             <img src="<?php echo get_theme_file_uri(); ?>/assets/images/common/no-image.jpg" alt="no-image" />
                                         <?php endif; ?>
@@ -129,7 +128,7 @@
                                                         ご予約・お問い合わせはコチラ
                                                     </p>
                                                     <div class="contact__button contact__button--margin">
-                                                        <a href="<?php echo esc_url(get_permalink(get_page_by_path('contact'))); ?>" class="button">
+                                                        <a href="<?php echo esc_url(home_url('/contact/')); ?>" class="button">
                                                             <span>Contact us</span>
                                                         </a>
                                                     </div>

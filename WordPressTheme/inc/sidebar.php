@@ -154,31 +154,33 @@
                   </div>
                   <div class="campaign-card__contents">
                     <p class="campaign-card__title campaign-card__title--small">
+                      <?php if ($terms = get_the_terms(get_the_ID(), 'campaign_subtitle')) : ?>
+                    <p class="campaign-card__title"><?= esc_html($terms[0]->name); ?></p>
+                  <?php endif; ?>
+
+                  </p>
+                  <div class="campaign-card__price-body">
+                    <span class="campaign-card__price campaign-card__price--small">
                       <?php
-                      $terms = get_the_terms(get_the_ID(), 'campaign_subtitle');
-                      if ($terms && !is_wp_error($terms)) {
-                        echo '<p class="campaign-card__title">' . esc_html($terms[0]->name) . '</p>';
-                      }
+                      $regular_price = get_the_terms(get_the_ID(), 'price');
                       ?>
-                    </p>
-                    <div class="campaign-card__price-body">
-                      <span class="campaign-card__price campaign-card__price--small">
-                        <?php
-                        $regular_price = get_the_terms(get_the_ID(), 'price');
-                        if ($regular_price && !is_wp_error($regular_price)) {
-                          echo esc_html('¥' . number_format((int)$regular_price[0]->name));
-                        }
-                        ?>
-                      </span>
-                      <span class="campaign-card__price-discount campaign-card__price-discount--small">
-                        <?php
-                        $price_discount = get_the_terms(get_the_ID(), 'price-discount');
-                        if ($price_discount && !is_wp_error($price_discount)) {
-                          echo esc_html('¥' . number_format((int)$price_discount[0]->name));
-                        }
-                        ?>
-                      </span>
-                    </div>
+
+                      <?php if ($regular_price && !is_wp_error($regular_price)) : ?>
+                        <p><?= esc_html('¥' . number_format((int)$regular_price[0]->name)); ?></p>
+                      <?php endif; ?>
+
+                    </span>
+                    <span class="campaign-card__price-discount campaign-card__price-discount--small">
+                      <?php
+                      $price_discount = get_the_terms(get_the_ID(), 'price-discount');
+                      ?>
+
+                      <?php if ($price_discount && !is_wp_error($price_discount)) : ?>
+                        <p><?= esc_html('¥' . number_format((int)$price_discount[0]->name)); ?></p>
+                      <?php endif; ?>
+
+                    </span>
+                  </div>
                   </div>
                 </div>
               </div>
@@ -190,7 +192,7 @@
       <?php endif; ?>
 
       <div class="sub-blog__button">
-        <a href="<?php echo get_post_type_archive_link('campaign'); ?>" class="button"> <!-- 変更点: リンクを修正 -->
+        <a href="<?php echo esc_url(home_url('/campaign/')); ?>" class="button">
           <span>View more</span>
         </a>
       </div>

@@ -123,7 +123,7 @@
         </div>
       </div>
       <div class="campaign__button">
-        <a href="<?php echo get_post_type_archive_link('campaign'); ?>" class="button">
+        <a href="<?php echo esc_url(home_url('/campaign/')); ?>" class="button">
           <span>View more</span>
         </a>
       </div>
@@ -165,7 +165,7 @@
               ここにテキストが入ります。ここにテキストが入ります。ここにテキストが入ります。ここにテキストが入ります。ここにテキストが入ります。
             </div>
             <div class="about-us__button">
-              <a href="<?php echo get_permalink(get_page_by_path('about-us')); ?>" class="button">
+              <a href="<?php echo esc_url(home_url('/about-us/')); ?>" class="button">
                 <span>View more</span>
               </a>
             </div>
@@ -196,7 +196,7 @@
               正規登録店として、安心安全に初めての方でも安心安全にライセンス取得をサポート致します。
             </p>
             <div class="information__button">
-              <a href="<?php echo get_permalink(get_page_by_path('information')); ?>" class="button">
+              <a href="<?php echo esc_url(home_url('/information/')); ?>" class="button">
                 <span>View more</span>
               </a>
             </div>
@@ -247,11 +247,8 @@
                   </div>
                   <p class="blog-card__text">
                     <?php
-                    $content = get_the_content();
-                    $content = strip_tags($content); // HTMLタグを削除
-                    $content = str_replace(array("\r", "\n"), '', $content); // 改行を削除
-                    $limit = 85; // 約5行分の文字数（調整が必要な場合があります）
-                    echo mb_substr($content, 0, $limit);
+                    $content = mb_substr(strip_tags(get_the_content()), 0, 86);
+                    echo $content;
                     ?>
                   </p>
                 </div>
@@ -266,7 +263,7 @@
         ?>
       </ul>
       <div class="blog__button">
-        <a href="<?php echo get_permalink(get_option('page_for_posts')); ?>" class="button">
+        <a href="<?php echo esc_url(home_url('/blog/')); ?>" class="button">
           <span>View more</span>
         </a>
       </div>
@@ -305,24 +302,21 @@
                           $gender_terms = get_the_terms(get_the_ID(), 'gender');
                           $age = $age_terms ? $age_terms[0]->name : '';
                           $gender = $gender_terms ? $gender_terms[0]->name : '';
-                          if ($age && $gender) {
-                            echo esc_html($age . '(' . $gender . ')');
-                          } elseif ($age) {
-                            echo esc_html($age);
-                          } elseif ($gender) {
-                            echo esc_html('(' . $gender . ')');
-                          }
-                          ?>
+
+                          if ($age && $gender) : ?>
+                            <?php echo esc_html($age . '(' . $gender . ')'); ?>
+                          <?php elseif ($age) : ?>
+                            <?php echo esc_html($age); ?>
+                          <?php elseif ($gender) : ?>
+                            <?php echo esc_html('(' . $gender . ')'); ?>
+                          <?php endif; ?>
                         </span>
                         <!-- カテゴリー -->
-                        <?php
-                        $taxonomy_terms = get_the_terms(get_the_ID(), 'voice_genre');
-                        if (!empty($taxonomy_terms)) {
-                          foreach ($taxonomy_terms as $taxonomy_term) {
-                            echo '<p class="voice-card__tag">' . esc_html($taxonomy_term->name) . '</p>';
-                          }
-                        }
-                        ?>
+                        <?php if ($taxonomy_terms = get_the_terms(get_the_ID(), 'voice_genre')) : foreach ($taxonomy_terms as $taxonomy_term) : ?>
+                            <p class="voice-card__tag"><?php echo esc_html($taxonomy_term->name); ?></p>
+                        <?php endforeach;
+                        endif; ?>
+
                       </div>
                       <div class="voice-card__title">
                         <?php the_title(); ?>
@@ -347,19 +341,16 @@
                 </div>
               </div>
             </li>
-        <?php
-          endwhile;
-          wp_reset_postdata(); // クエリをリセット
-        else :
-          echo '<li>No voices found.</li>'; // 投稿が見つからない場合
-        endif;
-        ?>
+          <?php endwhile; ?>
       </ul>
-      <div class="voice__button">
-        <a href="<?php echo get_post_type_archive_link('voice'); ?>" class="button">
-          <span>View more</span>
-        </a>
-      </div>
+    <?php else : ?>
+      <p>記事が投稿されていません</p>
+    <?php endif; ?>
+    <div class="voice__button">
+      <a href="<?php echo esc_url(home_url('/voice/')); ?>" class="button">
+        <span>View more</span>
+      </a>
+    </div>
     </div>
   </section>
 
@@ -381,44 +372,41 @@
           <?php
           // 固定ページIDを指定してSCFからメニューを取得
           $menu = SCF::get('menu', 127); // ID 127のページからメニューを取得
-          if (is_array($menu) && !empty($menu)) {
+          if (is_array($menu) && !empty($menu)) :
             $grouped_items = [];
-            foreach ($menu as $item) {
+            foreach ($menu as $item) :
               $category = $item['add_category']; // カテゴリー名を取得
-              if (!isset($grouped_items[$category])) {
+              if (!isset($grouped_items[$category])) :
                 $grouped_items[$category] = [];
-              }
+              endif;
               $grouped_items[$category][] = $item;
-            }
+            endforeach;
 
             // 各カテゴリーのデータを出力
-            foreach ($grouped_items as $category => $items) {
+            foreach ($grouped_items as $category => $items) :
           ?>
               <div class="price__lists">
                 <p class="price__title"><?php echo esc_html($category); ?></p> <!-- カテゴリー名を表示 -->
                 <dl class="price__menu">
                   <?php
-                  foreach ($items as $item) {
+                  foreach ($items as $item) :
                   ?>
                     <div class="price__list">
                       <dt class="price__name"><?php echo esc_html($item['add_title']); ?></dt> <!-- サブフィールドからタイトルを表示 -->
                       <dd class="price__cost"><?php echo esc_html($item['add_price']); ?></dd> <!-- サブフィールドから価格を表示 -->
                     </div>
-                  <?php
-                  }
-                  ?>
+                  <?php endforeach; ?>
                 </dl>
               </div>
-          <?php
-            }
-          } else
-            echo '<p>料金情報がありません。</p>'; // デフォルトメッセージ
-          ?>
+            <?php endforeach; ?>
+          <?php else : ?>
+            <p>料金情報がありません。</p>
+          <?php endif; ?>
 
         </div>
       </div>
       <div class="price__button">
-        <a href="<?php echo get_permalink(get_page_by_path('price')); ?>" class="button">
+        <a href="<?php echo esc_url(home_url('/price/')); ?>" class="button">
           <span>View more</span>
         </a>
       </div>

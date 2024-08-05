@@ -23,8 +23,8 @@
           <ul class="faq__list faq-list">
             <?php
             $faq_items = SCF::get('faq');
-            if (!empty($faq_items)) {
-              foreach ($faq_items as $faq_item) {
+            if (!empty($faq_items)) :
+              foreach ($faq_items as $faq_item) :
                 $question = esc_html($faq_item['question']);
                 $answer = wp_kses_post($faq_item['answer']);
             ?>
@@ -33,8 +33,8 @@
                   <p class="faq-list__item-answer"><?php echo $answer; ?></p>
                 </li>
             <?php
-              }
-            }
+              endforeach;
+            endif;
             ?>
           </ul>
         </div>

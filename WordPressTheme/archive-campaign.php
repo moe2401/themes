@@ -20,22 +20,23 @@
         <div class="sub-campaign__inner inner">
             <ul class="tab__menu">
                 <li class="tab__menu-item <?php echo is_post_type_archive('campaign') ? 'is-active' : ''; ?>">
-                    <a href="<?php echo get_post_type_archive_link('campaign'); ?>">ALL</a>
+                    <a href="<?php echo esc_url(home_url('/campaign/')); ?>">ALL</a>
                 </li>
                 <?php
                 $taxonomy_terms = get_terms(array(
                     'taxonomy' => 'campaign_genre',
                     'hide_empty' => false,
                 ));
-                if (!empty($taxonomy_terms) && !is_wp_error($taxonomy_terms)) {
-                    foreach ($taxonomy_terms as $term) {
-                        $active_class = is_tax('campaign_genre', $term->slug) ? 'is-active' : '';
-                        echo '<li class="tab__menu-item ' . esc_attr($active_class) . '">';
-                        echo '<a href="' . esc_url(get_term_link($term)) . '">' . esc_html($term->name) . '</a>';
-                        echo '</li>';
-                    }
-                }
                 ?>
+
+                <?php if (!empty($taxonomy_terms) && !is_wp_error($taxonomy_terms)) : ?>
+                    <?php foreach ($taxonomy_terms as $term) : ?>
+                        <?php $active_class = is_tax('campaign_genre', $term->slug) ? 'is-active' : ''; ?>
+                        <li class="tab__menu-item <?php echo $active_class; ?>">
+                            <a href="<?php echo get_term_link($term); ?>"><?php echo esc_html($term->name); ?></a>
+                        </li>
+                    <?php endforeach; ?>
+                <?php endif; ?>
             </ul>
 
             <div class="sub-campaign__content">
@@ -103,7 +104,7 @@
                                                     <span class="campaign-card__date"><?php echo esc_html(SCF::get('campaign_period')); ?></span>
                                                     <p class="contact__button-text">ご予約・お問い合わせはコチラ</p>
                                                     <div class="contact__button contact__button--margin">
-                                                        <a href="<?php echo esc_url(get_permalink(get_page_by_path('contact'))); ?>" class="button">
+                                                        <a href="<?php echo esc_url(home_url('/contact/')); ?>" class="button">
                                                             <span>Contact us</span>
                                                         </a>
                                                     </div>

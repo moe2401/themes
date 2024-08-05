@@ -24,17 +24,17 @@
         <!-- 一つの表 ここから-->
         <?php
         $menu = SCF::get('menu');
-        if (is_array($menu) && !empty($menu)) {
+        if (is_array($menu) && !empty($menu)) :
           $grouped_items = [];
-          foreach ($menu as $item) {
+          foreach ($menu as $item) :
             $category = $item['add_category'];
-            if (!isset($grouped_items[$category])) {
+            if (!isset($grouped_items[$category])) :
               $grouped_items[$category] = [];
-            }
+            endif;
             $grouped_items[$category][] = $item;
-          }
+          endforeach;
 
-          foreach ($grouped_items as $category => $items) {
+          foreach ($grouped_items as $category => $items) :
         ?>
             <div class="price-lists__items price-list">
               <p class="price-list__title">
@@ -43,8 +43,7 @@
               </p>
               <dl class="price-list__content">
                 <?php
-                foreach ($items as $item) {
-
+                foreach ($items as $item) :
                 ?>
                   <div class="price-list__wrap">
                     <dt class="price-list__data">
@@ -55,13 +54,13 @@
                     </dd>
                   </div>
                 <?php
-                }
+                endforeach;
                 ?>
               </dl>
             </div>
         <?php
-          }
-        }
+          endforeach;
+        endif;
         ?>
         <!-- 一つの表ここまで -->
       </div>

@@ -50,6 +50,7 @@ function my_setup()
 }
 add_action('after_setup_theme', 'my_setup');
 
+
 // --------------人気記事投稿-------------------------
 function getPostViews($postID)
 {

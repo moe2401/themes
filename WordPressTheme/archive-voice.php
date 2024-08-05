@@ -9,7 +9,7 @@
       </picture>
     </div>
     <div class="sub-mv__title-wrap sub-page-title">
-      <h1 class="sub-page-title__main"><?php echo is_tax('genre') ? single_term_title('', false) : 'Voice'; ?></h1>
+      <h1 class="sub-page-title__main">Voice</h1>
     </div>
   </section>
 
@@ -21,22 +21,22 @@
       <div class="sub-voice__tab tab">
         <ul class="tab__menu">
           <li class="tab__menu-item <?php echo is_post_type_archive('voice') ? 'is-active' : ''; ?>">
-            <a href="<?php echo get_post_type_archive_link('voice'); ?>">ALL</a>
+            <a href="<?php echo esc_url(home_url('/voice/')); ?>">ALL</a>
           </li>
           <?php
           $taxonomy_terms = get_terms(array(
             'taxonomy' => 'voice_genre',
             'hide_empty' => false,
           ));
-          if (!empty($taxonomy_terms) && !is_wp_error($taxonomy_terms)) {
-            foreach ($taxonomy_terms as $term) {
-              $active_class = is_tax('voice_genre', $term->slug) ? 'is-active' : '';
-              echo '<li class="tab__menu-item ' . $active_class . '">';
-              echo '<a href="' . get_term_link($term) . '">' . esc_html($term->name) . '</a>';
-              echo '</li>';
-            }
-          }
           ?>
+          <?php if (!empty($taxonomy_terms) && !is_wp_error($taxonomy_terms)) : ?>
+            <?php foreach ($taxonomy_terms as $term) : ?>
+              <?php $active_class = is_tax('voice_genre', $term->slug) ? 'is-active' : ''; ?>
+              <li class="tab__menu-item <?php echo $active_class; ?>">
+                <a href="<?php echo get_term_link($term); ?>"><?php echo esc_html($term->name); ?></a>
+              </li>
+            <?php endforeach; ?>
+          <?php endif; ?>
         </ul>
       </div>
 
@@ -56,24 +56,21 @@
                             $gender_terms = get_the_terms(get_the_ID(), 'gender');
                             $age = $age_terms ? $age_terms[0]->name : '';
                             $gender = $gender_terms ? $gender_terms[0]->name : '';
-                            if ($age && $gender) {
-                              echo esc_html($age . '(' . $gender . ')');
-                            } elseif ($age) {
-                              echo esc_html($age);
-                            } elseif ($gender) {
-                              echo esc_html('(' . $gender . ')');
-                            }
-                            ?>
+
+                            if ($age && $gender) : ?>
+                              <?php echo esc_html($age . '(' . $gender . ')'); ?>
+                            <?php elseif ($age) : ?>
+                              <?php echo esc_html($age); ?>
+                            <?php elseif ($gender) : ?>
+                              <?php echo esc_html('(' . $gender . ')'); ?>
+                            <?php endif; ?>
                           </span>
                           <!-- カテゴリー -->
-                          <?php
-                          $taxonomy_terms = get_the_terms(get_the_ID(), 'voice_genre');
-                          if (!empty($taxonomy_terms)) {
-                            foreach ($taxonomy_terms as $taxonomy_term) {
-                              echo '<span class="voice-card__tag">' . esc_html($taxonomy_term->name) . '</span>';
-                            }
-                          }
-                          ?>
+                          <?php if ($taxonomy_terms = get_the_terms(get_the_ID(), 'voice_genre')) : foreach ($taxonomy_terms as $taxonomy_term) : ?>
+                              <p class="voice-card__tag"><?php echo esc_html($taxonomy_term->name); ?></p>
+                          <?php endforeach;
+                          endif; ?>
+
                         </div>
                         <div class="voice-card__title">
                           <?php the_title(); ?>
@@ -92,13 +89,7 @@
                       </div>
                     </div>
                     <p class="voice-card__text">
-                      <?php
-                      $content = get_the_content();
-                      $content = strip_tags($content); // HTMLタグを削除
-                      $content = str_replace(array("\r", "\n"), '', $content); // 改行を削除
-                      $limit = 169;
-                      echo mb_substr($content, 0, $limit);
-                      ?>
+                      <?php the_content(); ?>
                     </p>
                   </div>
                 </div>
