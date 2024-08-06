@@ -120,18 +120,37 @@ function wpcf7_autop_return_false()
 
 
 //--------------thanksページへ遷移---------------------
-add_action('wp_footer', 'add_thanks_wcf7');
+$contact = 'contact';
+$thanks = 'thanks';
 
-function add_thanks_wcf7()
+add_action('wp_footer', 'redirect_thanks_page');
+function redirect_thanks_page()
 {
-  echo <<< EOD
-<script>
-document.addEventListener( 'wpcf7mailsent', function( event ) {
-location = 'http://localhost:10033/thanks/';
-}, false );
-</script>
-EOD;
+  global $contact;
+  global $thanks;
+
+?>
+  <script>
+    document.addEventListener('wpcf7mailsent', function(event) {
+      location = '<?php echo home_url('/' . $contact . '/' . $thanks); ?>';
+    }, false);
+  </script>
+<?php
 }
+
+
+// add_action('wp_footer', 'add_thanks_wcf7');
+
+// function add_thanks_wcf7()
+// {
+//   echo <<< EOD
+// <script>
+// document.addEventListener( 'wpcf7mailsent', function( event ) {
+// location = 'http://localhost:10033/thanks/';
+// }, false );
+// </script>
+// EOD;
+// }
 
 //-----------campaign,voiceページの投稿数-----------------
 function modify_campaign_query($query)

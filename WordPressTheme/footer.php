@@ -1,4 +1,5 @@
-<?php if (!is_page('contact') && !is_404()) : ?>
+<?php if (!is_page(array('contact', 'thanks')) && !is_404()) : ?>
+  <!-- 条件に合うときに表示したい内容 -->
   <section class="contact layout-contact">
     <div class="contact__inner inner">
       <div class="contact__wrap">
