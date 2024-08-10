@@ -35,7 +35,7 @@
 
                       <?php $cat = get_the_category();
                       $cat = $cat[0]->cat_name; ?>
-                      <p class="blog-card__category"><?php echo $cat ?></p>
+                      <p class="blog-card__category"><?php the_title(); ?></p>
                     </div>
                   </div>
                 </div>
@@ -135,52 +135,49 @@
               <div class="campaign-card campaign-card--large"> <!-- 変更点: <a>タグを削除 -->
                 <div class="campaign-card__img campaign-card__img--aside">
                   <?php if (has_post_thumbnail()) : ?>
-                    <img src="<?php the_post_thumbnail_url('full'); ?>" alt="<?php the_title_attribute(); ?>">
+                    <img src="<?php the_post_thumbnail_url('full'); ?>" alt="<?php echo esc_attr(get_post_meta(get_post_thumbnail_id(), '_wp_attachment_image_alt', true)); ?>">
                   <?php else : ?>
-                    <img src="<?php echo get_theme_file_uri(); ?>/assets/images/common/campaign_1.jpg" alt="デフォルトの画像">
+                    <img src="<?php echo get_theme_file_uri(); ?>/assets/images/common/no-image.jpg" alt="no-image" />
                   <?php endif; ?>
                 </div>
 
                 <div class="campaign-card__item-body campaign-card__item-body--aside">
                   <div class="campaign-card__meta">
                     <p class="campaign-card__category campaign-card__category--center">
-                      <?php
-                      $terms = get_the_terms(get_the_ID(), 'campaign_genre');
-                      if ($terms && !is_wp_error($terms)) {
-                        echo esc_html($terms[0]->name);
-                      }
-                      ?>
+                      <?php the_title() ?>
                     </p>
                   </div>
+                  <?php
+                  // campaign_price グループフィールドを取得
+                  $campaign_info = get_field('campaign_info');
+                  ?>
                   <div class="campaign-card__contents">
                     <p class="campaign-card__title campaign-card__title--small">
-                      <?php if ($terms = get_the_terms(get_the_ID(), 'campaign_subtitle')) : ?>
-                    <p class="campaign-card__title"><?= esc_html($terms[0]->name); ?></p>
-                  <?php endif; ?>
 
-                  </p>
-                  <div class="campaign-card__price-body">
-                    <span class="campaign-card__price campaign-card__price--small">
-                      <?php
-                      $regular_price = get_the_terms(get_the_ID(), 'price');
-                      ?>
-
-                      <?php if ($regular_price && !is_wp_error($regular_price)) : ?>
-                        <p><?= esc_html('¥' . number_format((int)$regular_price[0]->name)); ?></p>
-                      <?php endif; ?>
-
-                    </span>
-                    <span class="campaign-card__price-discount campaign-card__price-discount--small">
-                      <?php
-                      $price_discount = get_the_terms(get_the_ID(), 'price-discount');
-                      ?>
-
-                      <?php if ($price_discount && !is_wp_error($price_discount)) : ?>
-                        <p><?= esc_html('¥' . number_format((int)$price_discount[0]->name)); ?></p>
-                      <?php endif; ?>
-
-                    </span>
-                  </div>
+                    <p class="campaign-card__title">
+                      <?= $campaign_info && isset($campaign_info['plan_title'])
+                        ? esc_html($campaign_info['plan_title'])
+                        : '情報がありません'; ?>
+                    </p>
+                    </p>
+                    <div class="campaign-card__price-body">
+                      <span class="campaign-card__price campaign-card__price--small">
+                        <?php
+                        // $campaign_info を取得する前提で処理
+                        $price = isset($campaign_info['price']) ? $campaign_info['price'] : null;
+                        $formatted_price = $price !== null ? '￥' . number_format($price) : '価格情報がありません';
+                        echo esc_html($formatted_price);
+                        ?>
+                      </span>
+                      <span class="campaign-card__price-discount campaign-card__price-discount--small">
+                        <?php
+                        // 割引価格を取得
+                        $price_discount = isset($campaign_info['price_discount']) ? $campaign_info['price_discount'] : null;
+                        $formatted_discount = $price_discount !== null ? '￥' . number_format($price_discount) : '価格情報がありません';
+                        echo esc_html($formatted_discount);
+                        ?>
+                      </span>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -188,7 +185,7 @@
           <?php endwhile; ?>
         </ul>
       <?php else : ?>
-        <p>該当するキャンペーンがありません。</p>
+        <p>キャンペーン記事がありません。</p>
       <?php endif; ?>
 
       <div class="sub-blog__button">

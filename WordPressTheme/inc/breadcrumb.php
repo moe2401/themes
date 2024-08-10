@@ -1,4 +1,4 @@
-<div class="breadcrumb <?php if (is_404()) : ?>breadcrumb--white<?php else : ?>layout-breadcrumb decoration<?php endif; ?>">
+<div class="breadcrumb <?php echo is_404() ? 'breadcrumb--white' : 'layout-breadcrumb decoration'; ?>">
     <div class="breadcrumb__inner inner">
         <?php if (function_exists('bcn_display')) : ?>
             <div class="about__breadcrumb">

@@ -12,7 +12,7 @@
         <p class="error__text">お探しのページが見つかりません。</p>
       </div>
       <div class="error__button">
-        <a href="./index.html" class="button button--white">
+        <a href="<?php echo esc_url(home_url('')); ?>" class="button button--white">
           <span>Page TOP</span>
         </a>
       </div>

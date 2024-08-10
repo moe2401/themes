@@ -7,9 +7,7 @@
   <meta name="format-detection" content="telephone=no" />
   <meta name="robots" content="noindex" />
   <?php wp_head(); ?>
-  <?php if (is_404()) : ?>
-    <meta http-equiv="refresh" content=" 3; url=<?php echo esc_url(home_url("")); ?>">
-  <?php endif; ?>
+
 </head>
 
 <body>

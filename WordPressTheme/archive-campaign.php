@@ -67,30 +67,34 @@
                                                 <?php the_title(); ?>
                                             </p>
                                         </div>
+                                        <?php
+                                        // campaign_price グループフィールドを取得
+                                        $campaign_info = get_field('campaign_info');
+                                        ?>
                                         <div class="campaign-card__contents">
                                             <p class="campaign-card__title">
-                                                <?php
-                                                $terms = get_the_terms(get_the_ID(), 'campaign_subtitle');
-                                                if ($terms && !is_wp_error($terms)) {
-                                                    echo esc_html($terms[0]->name);
-                                                }
-                                                ?>
+                                                <?= $campaign_info && isset($campaign_info['plan_title'])
+                                                    ? esc_html($campaign_info['plan_title'])
+                                                    : '情報がありません'; ?>
                                             </p>
+
                                             <div class="campaign-card__price-body">
+                                                <!-- campaign_price グループの price サブフィールドを取得 -->
                                                 <span class="campaign-card__price">
                                                     <?php
-                                                    $regular_price = get_the_terms(get_the_ID(), 'price');
-                                                    if ($regular_price && !is_wp_error($regular_price)) {
-                                                        echo esc_html('¥' . number_format((int)$regular_price[0]->name));
-                                                    }
+                                                    // $campaign_info を取得する前提で処理
+                                                    $price = isset($campaign_info['price']) ? $campaign_info['price'] : null;
+                                                    $formatted_price = $price !== null ? '￥' . number_format($price) : '価格情報がありません';
+                                                    echo esc_html($formatted_price);
                                                     ?>
                                                 </span>
+
                                                 <span class="campaign-card__price-discount">
                                                     <?php
-                                                    $price_discount = get_the_terms(get_the_ID(), 'price-discount');
-                                                    if ($price_discount && !is_wp_error($price_discount)) {
-                                                        echo esc_html('¥' . number_format((int)$price_discount[0]->name));
-                                                    }
+                                                    // 割引価格を取得
+                                                    $price_discount = isset($campaign_info['price_discount']) ? $campaign_info['price_discount'] : null;
+                                                    $formatted_discount = $price_discount !== null ? '￥' . number_format($price_discount) : '価格情報がありません';
+                                                    echo esc_html($formatted_discount);
                                                     ?>
                                                 </span>
                                             </div>
@@ -101,7 +105,15 @@
                                                 </p>
 
                                                 <div class="campaign-card__wrap">
-                                                    <span class="campaign-card__date"><?php echo esc_html(SCF::get('campaign_period')); ?></span>
+                                                    <span class="campaign-card__date">
+                                                        <?php
+                                                        $date_start = isset($campaign_info['date_start']) ? esc_html($campaign_info['date_start']) : '期間情報がありません';
+                                                        $date_end = isset($campaign_info['date_end']) ? esc_html($campaign_info['date_end']) : '';
+
+                                                        // date_end が設定されていない場合は、date_start のみを表示
+                                                        echo $date_start . ($date_end ? ' - ' . $date_end : '');
+                                                        ?>
+                                                    </span>
                                                     <p class="contact__button-text">ご予約・お問い合わせはコチラ</p>
                                                     <div class="contact__button contact__button--margin">
                                                         <a href="<?php echo esc_url(home_url('/contact/')); ?>" class="button">

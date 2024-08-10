@@ -52,21 +52,27 @@
                                         <div class="voice-card__wrap">
                                             <div class="voice-card__contents">
                                                 <div class="voice-card__meta">
+                                                    <?php
+                                                    // グループフィールドを取得
+                                                    $voice_info = get_field('voice_info');
+
+                                                    // voice_age の取得
+                                                    $age_value = '';
+                                                    if (is_array($voice_info) && isset($voice_info['voice_age'][0]['value'])) {
+                                                        $age_value = esc_html($voice_info['voice_age'][0]['value']);
+                                                    }
+
+                                                    // voice_gender の取得
+                                                    $gender_value = '';
+                                                    if (is_array($voice_info) && isset($voice_info['voice_gender'][0])) {
+                                                        $gender_value = esc_html($voice_info['voice_gender'][0]);
+                                                    }
+                                                    ?>
+
                                                     <span class="voice-card__age">
-                                                        <?php
-                                                        $age_terms = get_the_terms(get_the_ID(), 'age');
-                                                        $gender_terms = get_the_terms(get_the_ID(), 'gender');
-                                                        $age = $age_terms ? $age_terms[0]->name : '';
-                                                        $gender = $gender_terms ? $gender_terms[0]->name : '';
-                                                        if ($age && $gender) {
-                                                            echo esc_html($age . '(' . $gender . ')');
-                                                        } elseif ($age) {
-                                                            echo esc_html($age);
-                                                        } elseif ($gender) {
-                                                            echo esc_html('(' . $gender . ')');
-                                                        }
-                                                        ?>
+                                                        <?php echo $age_value . ($gender_value ? "($gender_value)" : ''); ?>
                                                     </span>
+
                                                     <!-- カテゴリー -->
                                                     <?php
                                                     $taxonomy_terms = get_the_terms(get_the_ID(), 'voice_genre');
