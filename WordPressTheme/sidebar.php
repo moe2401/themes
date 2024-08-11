@@ -75,20 +75,26 @@
               <?php endif; ?>
             </div>
             <div class="review-card__body">
+
+              <?php
+              // グループフィールドを取得
+              $voice_info = get_field('voice_info');
+
+              // voice_age の取得
+              $age_value = '';
+              if (is_array($voice_info) && isset($voice_info['voice_age'][0]['value'])) {
+                $age_value = esc_html($voice_info['voice_age'][0]['value']);
+              }
+
+              // voice_gender の取得
+              $gender_value = '';
+              if (is_array($voice_info) && isset($voice_info['voice_gender'][0])) {
+                $gender_value = esc_html($voice_info['voice_gender'][0]);
+              }
+              ?>
+
               <p class="review-card__category">
-                <?php
-                $age_terms = get_the_terms(get_the_ID(), 'age');
-                $gender_terms = get_the_terms(get_the_ID(), 'gender');
-                $age = $age_terms ? $age_terms[0]->name : '';
-                $gender = $gender_terms ? $gender_terms[0]->name : '';
-                if ($age && $gender) {
-                  echo $age . '(' . $gender . ')';
-                } elseif ($age) {
-                  echo $age;
-                } elseif ($gender) {
-                  echo '(' . $gender . ')';
-                }
-                ?>
+                <?php echo $age_value . ($gender_value ? "($gender_value)" : ''); ?>
               </p>
               <p class="review-card__text">
                 <?php the_title(); ?>
@@ -207,9 +213,18 @@
         $years = $wpdb->get_col("SELECT DISTINCT YEAR(post_date) FROM $wpdb->posts WHERE post_type = 'post' AND post_status = 'publish' ORDER BY post_date DESC");
 
         $japanese_months = array(
-          1 => '1月', 2 => '2月', 3 => '3月', 4 => '4月',
-          5 => '5月', 6 => '6月', 7 => '7月', 8 => '8月',
-          9 => '9月', 10 => '10月', 11 => '11月', 12 => '12月'
+          1 => '1月',
+          2 => '2月',
+          3 => '3月',
+          4 => '4月',
+          5 => '5月',
+          6 => '6月',
+          7 => '7月',
+          8 => '8月',
+          9 => '9月',
+          10 => '10月',
+          11 => '11月',
+          12 => '12月'
         );
 
         foreach ($years as $year) :

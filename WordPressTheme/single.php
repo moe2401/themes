@@ -41,8 +41,6 @@
                   <?php endif; ?>
                 </div>
               </div>
-
-
               <div class="sub-blog__bottom">
                 <?php the_content(); ?>
               </div>

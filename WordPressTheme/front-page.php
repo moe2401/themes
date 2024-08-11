@@ -50,75 +50,64 @@
         <div class="js-campaign-swiper swiper">
           <ul class="campaign__swiper-wrapper swiper-wrapper">
             <?php
-            // カスタム投稿タイプ 'campaign' の投稿を取得
+            // キャンペーン記事を取得
             $args = array(
-              'post_type' => 'campaign', // カスタム投稿タイプ名
-              'posts_per_page' => -1, // すべての投稿を取得
+              'post_type' => 'campaign',
+              'posts_per_page' => -1,
             );
             $campaign_query = new WP_Query($args);
 
             if ($campaign_query->have_posts()) :
               while ($campaign_query->have_posts()) : $campaign_query->the_post();
-                $campaign_image = get_the_post_thumbnail_url(get_the_ID(), 'full'); // アイキャッチ画像を取得
+                $terms = get_the_terms(get_the_ID(), 'campaign_genre');
+                $campaign_info = get_field('campaign_info');
 
                 // タグを取得
-                $terms = get_the_terms(get_the_ID(), 'campaign_genre'); // 'genre' はタクソノミー名
-                $campaign_tag = !empty($terms) && !is_wp_error($terms) ? esc_html($terms[0]->name) : ''; // タグ名を取得
+                $campaign_tag = !empty($terms) && !is_wp_error($terms) ? esc_html($terms[0]->name) : 'ジャンルが見つかりませんでした。';
 
-                // カテゴリを取得
-                $category_terms = get_the_terms(get_the_ID(), 'campaign_category'); // 'campaign_category' タクソノミーから取得
-                if ($category_terms && !is_wp_error($category_terms)) {
-                  $campaign_category = esc_html($category_terms[0]->name); // カテゴリ名を取得
-                } else {
-                  $campaign_category = 'カテゴリが設定されていません'; // デフォルトメッセージ
-                }
-
+                // カスタムフィールドから情報を取得
                 $campaign_title = get_the_title(); // 投稿タイトル
 
-                // campaign_subtitleを取得
-                $subtitle_terms = get_the_terms(get_the_ID(), 'campaign_subtitle'); // 'campaign_subtitle' タクソノミーから取得
-                $campaign_subtitle = !empty($subtitle_terms) && !is_wp_error($subtitle_terms) ? esc_html($subtitle_terms[0]->name) : ''; // サブタイトルを取得
-
-                // 価格を取得
-                $regular_price = get_the_terms(get_the_ID(), 'price');
-                $campaign_price = !empty($regular_price) && !is_wp_error($regular_price) ? esc_html('¥' . number_format((int)$regular_price[0]->name)) : '価格未設定';
-
-                // 割引価格を取得
-                $price_discount = get_the_terms(get_the_ID(), 'price-discount');
-                $campaign_discount_price = !empty($price_discount) && !is_wp_error($price_discount) ? esc_html('¥' . number_format((int)$price_discount[0]->name)) : '割引価格未設定';
+                // カスタムフィールドの 'campaign_info' から情報を取得
+                $plan_title = isset($campaign_info['plan_title']) ? esc_html($campaign_info['plan_title']) : '情報がありません';
+                $price = isset($campaign_info['price']) ? '￥' . number_format($campaign_info['price']) : '価格情報がありません';
+                $price_discount = isset($campaign_info['price_discount']) ? '￥' . number_format($campaign_info['price_discount']) : '割引価格未設定';
             ?>
+
                 <li class="campaign__slide swiper-slide">
                   <div class="campaign-card">
                     <div class="campaign-card__img">
-                      <img src="<?php echo esc_url($campaign_image); ?>" alt="<?php echo esc_attr($campaign_title); ?>" />
+                      <?php if (has_post_thumbnail()) : ?>
+                        <img src="<?php the_post_thumbnail_url('full'); ?>" alt="<?php echo esc_attr(get_post_meta(get_post_thumbnail_id(), '_wp_attachment_image_alt', true)); ?>">
+                      <?php else : ?>
+                        <img src="<?php echo get_theme_file_uri(); ?>/assets/images/common/no-image.jpg" alt="no-image" />
+                      <?php endif; ?>
                     </div>
+
                     <div class="campaign-card__item-body">
                       <div class="campaign-card__meta">
                         <span class="campaign-card__tag"><?php echo $campaign_tag; ?></span>
-                        <p class="campaign-card__category">
-                          <?php the_title(); ?>
-                        </p> <!-- カテゴリを表示 -->
+                        <p class="campaign-card__category"><?php echo $campaign_title; ?></p>
                       </div>
                       <div class="campaign-card__contents">
-                        <p class="campaign-card__title">
-                          <?php echo $campaign_subtitle; // campaign_subtitleを表示 
-                          ?>
-                        </p>
+                        <p class="campaign-card__title"><?php echo $plan_title; ?></p>
                         <div class="campaign-card__price-body">
-                          <span class="campaign-card__price"><?php echo $campaign_price; ?></span>
-                          <span class="campaign-card__price-discount"><?php echo $campaign_discount_price; ?></span>
+                          <span class="campaign-card__price"><?php echo $price; ?></span>
+                          <span class="campaign-card__price-discount"><?php echo $price_discount; ?></span>
                         </div>
                       </div>
                     </div>
                   </div>
                 </li>
+
             <?php
               endwhile;
-              wp_reset_postdata(); // クエリをリセット
+              wp_reset_postdata();
             else :
-              echo '<li>No campaigns found.</li>'; // 投稿が見つからない場合
+              echo '<li>No campaigns found.</li>';
             endif;
             ?>
+
           </ul>
         </div>
       </div>
@@ -129,6 +118,8 @@
       </div>
     </div>
   </section>
+
+
 
   <section class="about-us layout-about-us">
     <div class="about-us__inner inner">
@@ -243,7 +234,7 @@
                     <time class="blog-card__time" datetime="<?php the_time('c'); ?>"><?php the_time('Y.m/d'); ?></time>
                     <?php $cat = get_the_category();
                     $cat = $cat[0]->cat_name; ?>
-                    <p class="blog-card__category"><?php echo esc_html($cat); ?></p>
+                    <p class="blog-card__category"><?php the_title(); ?></p>
                   </div>
                   <p class="blog-card__text">
                     <?php
@@ -296,20 +287,25 @@
                   <div class="voice-card__wrap">
                     <div class="voice-card__contents">
                       <div class="voice-card__meta">
-                        <span class="voice-card__age">
-                          <?php
-                          $age_terms = get_the_terms(get_the_ID(), 'age');
-                          $gender_terms = get_the_terms(get_the_ID(), 'gender');
-                          $age = $age_terms ? $age_terms[0]->name : '';
-                          $gender = $gender_terms ? $gender_terms[0]->name : '';
+                        <?php
+                        // グループフィールドを取得
+                        $voice_info = get_field('voice_info');
 
-                          if ($age && $gender) : ?>
-                            <?php echo esc_html($age . '(' . $gender . ')'); ?>
-                          <?php elseif ($age) : ?>
-                            <?php echo esc_html($age); ?>
-                          <?php elseif ($gender) : ?>
-                            <?php echo esc_html('(' . $gender . ')'); ?>
-                          <?php endif; ?>
+                        // voice_age の取得
+                        $age_value = '';
+                        if (is_array($voice_info) && isset($voice_info['voice_age'][0]['value'])) {
+                          $age_value = esc_html($voice_info['voice_age'][0]['value']);
+                        }
+
+                        // voice_gender の取得
+                        $gender_value = '';
+                        if (is_array($voice_info) && isset($voice_info['voice_gender'][0])) {
+                          $gender_value = esc_html($voice_info['voice_gender'][0]);
+                        }
+                        ?>
+
+                        <span class="voice-card__age">
+                          <?php echo $age_value . ($gender_value ? "($gender_value)" : ''); ?>
                         </span>
                         <!-- カテゴリー -->
                         <?php if ($taxonomy_terms = get_the_terms(get_the_ID(), 'voice_genre')) : foreach ($taxonomy_terms as $taxonomy_term) : ?>

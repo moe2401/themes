@@ -37,7 +37,7 @@
                         <time class="blog-card__time" datetime="<?php the_time("c"); ?>"><?php the_time("Y.m/d"); ?></time>
                         <?php $cat = get_the_category();
                         $cat = $cat[0]->cat_name; ?>
-                        <p class="blog-card__category"><?php echo $cat ?></p>
+                        <p class="blog-card__category"><?php the_title(); ?></p>
                       </div>
                       <p class="blog-card__text">
                         <?php

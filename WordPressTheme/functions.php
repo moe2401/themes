@@ -111,14 +111,6 @@ add_action('init', 'Change_objectlabel');
 add_action('admin_menu', 'Change_menulabel');
 
 
-// -----------Contact Form 7で自動挿入されるPタグ、brタグを削除-------
-add_filter('wpcf7_autop_or_not', 'wpcf7_autop_return_false');
-function wpcf7_autop_return_false()
-{
-  return false;
-}
-
-
 //--------------thanksページへ遷移---------------------
 $contact = 'contact';
 $thanks = 'thanks';
@@ -139,39 +131,16 @@ function redirect_thanks_page()
 }
 
 
-// add_action('wp_footer', 'add_thanks_wcf7');
-
-// function add_thanks_wcf7()
-// {
-//   echo <<< EOD
-// <script>
-// document.addEventListener( 'wpcf7mailsent', function( event ) {
-// location = 'http://localhost:10033/thanks/';
-// }, false );
-// </script>
-// EOD;
-// }
-
-//-----------campaign,voiceページの投稿数-----------------
-function modify_campaign_query($query)
-{
-  // 管理画面ではなく、メインクエリの場合
-  if (!is_admin() && $query->is_main_query()) {
-    // 「campaign」投稿タイプのアーカイブページの場合
-    if (is_post_type_archive('campaign')) {
-      $query->set('posts_per_page', 4);
-    }
-    // 「voice」投稿タイプのアーカイブページの場合
-    if (is_post_type_archive('voice')) {
-      $query->set('posts_per_page', 6);
-    }
-  }
-}
-
 // pre_get_postsアクションフックにカスタム関数を追加
 add_action('pre_get_posts', 'modify_campaign_query');
 
 
+// -----------Contact Form 7で自動挿入されるPタグ、brタグを削除-------
+add_filter('wpcf7_autop_or_not', 'wpcf7_autop_return_false');
+function wpcf7_autop_return_false()
+{
+  return false;
+}
 
 // ----------Contact Form 7 セレクトボックスのカスタマイズ------------
 function filter_wpcf7_form_tag($scanned_tag, $replace)
@@ -215,6 +184,22 @@ function unregister_taxonomy_for_post_type()
 {
   // 既に登録されているタクソノミーを解除する
   unregister_taxonomy_for_object_type('voice_genre', 'campaign');
+}
+
+//-----------campaign,voiceページの投稿数-----------------
+function modify_campaign_query($query)
+{
+  // 管理画面ではなく、メインクエリの場合
+  if (!is_admin() && $query->is_main_query()) {
+    // 「campaign」投稿タイプのアーカイブページの場合
+    if (is_post_type_archive('campaign')) {
+      $query->set('posts_per_page', 4);
+    }
+    // 「voice」投稿タイプのアーカイブページの場合
+    if (is_post_type_archive('voice')) {
+      $query->set('posts_per_page', 6);
+    }
+  }
 }
 
 // initアクションフックに追加
