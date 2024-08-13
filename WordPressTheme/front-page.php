@@ -372,10 +372,19 @@
             $grouped_items = [];
             foreach ($menu as $item) :
               $category = $item['add_category']; // カテゴリー名を取得
-              if (!isset($grouped_items[$category])) :
-                $grouped_items[$category] = [];
+              if (is_array($category)) :
+                foreach ($category as $cat) :
+                  if (!isset($grouped_items[$cat])) :
+                    $grouped_items[$cat] = [];
+                  endif;
+                  $grouped_items[$cat][] = $item;
+                endforeach;
+              else :
+                if (!isset($grouped_items[$category])) :
+                  $grouped_items[$category] = [];
+                endif;
+                $grouped_items[$category][] = $item;
               endif;
-              $grouped_items[$category][] = $item;
             endforeach;
 
             // 各カテゴリーのデータを出力

@@ -4,6 +4,8 @@
   color: $white;
   background-color: $green;
   padding-top: rem(88);
+  position: relative;
+  z-index: 19;
   @include mq("md") {
     padding-top: rem(98);
   }

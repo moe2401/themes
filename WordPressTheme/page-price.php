@@ -27,14 +27,23 @@
         if (is_array($menu) && !empty($menu)) :
           $grouped_items = [];
           foreach ($menu as $item) :
-            $category = $item['add_category'];
-            if (!isset($grouped_items[$category])) :
-              $grouped_items[$category] = [];
+            $category = $item['add_category']; // チェックボックスの値が配列である場合
+            if (is_array($category)) :
+              foreach ($category as $cat) :
+                if (!isset($grouped_items[$cat])) :
+                  $grouped_items[$cat] = [];
+                endif;
+                $grouped_items[$cat][] = $item;
+              endforeach;
+            else :
+              if (!isset($grouped_items[$category])) :
+                $grouped_items[$category] = [];
+              endif;
+              $grouped_items[$category][] = $item;
             endif;
-            $grouped_items[$category][] = $item;
           endforeach;
-
           foreach ($grouped_items as $category => $items) :
+
         ?>
             <div class="price-lists__items price-list">
               <p class="price-list__title">

@@ -420,6 +420,8 @@ body {
 	background-color: #408f95;
 	color: #fff;
 	padding-top: 5.5rem;
+	position: relative;
+	z-index: 19;
 }
 
 .breadcrumb__inner span {
