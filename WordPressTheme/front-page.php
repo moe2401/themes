@@ -70,8 +70,9 @@
 
                 // カスタムフィールドの 'campaign_info' から情報を取得
                 $plan_title = isset($campaign_info['plan_title']) ? esc_html($campaign_info['plan_title']) : '情報がありません';
-                $price = isset($campaign_info['price']) ? '￥' . number_format($campaign_info['price']) : '価格情報がありません';
-                $price_discount = isset($campaign_info['price_discount']) ? '￥' . number_format($campaign_info['price_discount']) : '割引価格未設定';
+                $price_info = isset($campaign_info['price_info']) ? $campaign_info['price_info'] : array();
+                $price = isset($price_info['price']) ? '￥' . number_format($price_info['price']) : '価格情報がありません';
+                $price_discount = isset($price_info['price_discount']) ? '￥' . number_format($price_info['price_discount']) : '割引価格未設定';
             ?>
 
                 <li class="campaign__slide swiper-slide">
@@ -90,10 +91,10 @@
                         <p class="campaign-card__category"><?php echo $campaign_title; ?></p>
                       </div>
                       <div class="campaign-card__contents">
-                        <p class="campaign-card__title"><?php echo $plan_title; ?></p>
+                        <p class="campaign-card__title"><?php echo esc_html($plan_title); ?></p>
                         <div class="campaign-card__price-body">
-                          <span class="campaign-card__price"><?php echo $price; ?></span>
-                          <span class="campaign-card__price-discount"><?php echo $price_discount; ?></span>
+                          <span class="campaign-card__price"><?php echo esc_html($price); ?></span>
+                          <span class="campaign-card__price-discount"><?php echo esc_html($price_discount); ?></span>
                         </div>
                       </div>
                     </div>
@@ -118,6 +119,7 @@
       </div>
     </div>
   </section>
+
 
 
 
@@ -291,16 +293,16 @@
                         // グループフィールドを取得
                         $voice_info = get_field('voice_info');
 
-                        // voice_age の取得
+                        // voice_age の取得（選択フィールドの場合）
                         $age_value = '';
-                        if (is_array($voice_info) && isset($voice_info['voice_age'][0]['value'])) {
-                          $age_value = esc_html($voice_info['voice_age'][0]['value']);
+                        if (is_array($voice_info) && isset($voice_info['voice_age'])) {
+                          $age_value = esc_html($voice_info['voice_age']); // 単一の値を取得
                         }
 
-                        // voice_gender の取得
+                        // voice_gender の取得（選択フィールドの場合）
                         $gender_value = '';
-                        if (is_array($voice_info) && isset($voice_info['voice_gender'][0])) {
-                          $gender_value = esc_html($voice_info['voice_gender'][0]);
+                        if (is_array($voice_info) && isset($voice_info['voice_gender'])) {
+                          $gender_value = esc_html($voice_info['voice_gender']); // 単一の値を取得
                         }
                         ?>
 
@@ -398,7 +400,14 @@
                   ?>
                     <div class="price__list">
                       <dt class="price__name"><?php echo esc_html($item['add_title']); ?></dt> <!-- サブフィールドからタイトルを表示 -->
-                      <dd class="price__cost"><?php echo esc_html($item['add_price']); ?></dd> <!-- サブフィールドから価格を表示 -->
+                      <dd class="price__cost">
+                        <?php
+                        // add_price が存在し、数値であることを確認
+                        $add_price = isset($item['add_price']) && is_numeric($item['add_price']) ? $item['add_price'] : 0;
+                        $formatted_price = '￥' . number_format($add_price);
+                        echo esc_html($formatted_price);
+                        ?>
+                      </dd> <!-- サブフィールドから価格を表示 -->
                     </div>
                   <?php endforeach; ?>
                 </dl>

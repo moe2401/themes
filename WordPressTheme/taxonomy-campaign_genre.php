@@ -101,11 +101,14 @@
                                             </p>
 
                                             <div class="campaign-card__price-body">
-                                                <!-- campaign_price グループの price サブフィールドを取得 -->
+                                                <!-- price_info グループを取得 -->
+                                                <?php
+                                                $price_info = isset($campaign_info['price_info']) ? $campaign_info['price_info'] : null;
+                                                ?>
                                                 <span class="campaign-card__price">
                                                     <?php
-                                                    // $campaign_info を取得する前提で処理
-                                                    $price = isset($campaign_info['price']) ? $campaign_info['price'] : null;
+                                                    // price を取得
+                                                    $price = $price_info && isset($price_info['price']) ? $price_info['price'] : null;
                                                     $formatted_price = $price !== null ? '￥' . number_format($price) : '価格情報がありません';
                                                     echo esc_html($formatted_price);
                                                     ?>
@@ -114,7 +117,7 @@
                                                 <span class="campaign-card__price-discount">
                                                     <?php
                                                     // 割引価格を取得
-                                                    $price_discount = isset($campaign_info['price_discount']) ? $campaign_info['price_discount'] : null;
+                                                    $price_discount = $price_info && isset($price_info['price_discount']) ? $price_info['price_discount'] : null;
                                                     $formatted_discount = $price_discount !== null ? '￥' . number_format($price_discount) : '価格情報がありません';
                                                     echo esc_html($formatted_discount);
                                                     ?>
@@ -129,8 +132,15 @@
                                                 <div class="campaign-card__wrap">
                                                     <span class="campaign-card__date">
                                                         <?php
-                                                        $date_start = isset($campaign_info['date_start']) ? esc_html($campaign_info['date_start']) : '期間情報がありません';
-                                                        $date_end = isset($campaign_info['date_end']) ? esc_html($campaign_info['date_end']) : '';
+                                                        // campaign_info グループフィールドを取得
+                                                        $campaign_info = get_field('campaign_info');
+
+                                                        // period_info グループを取得
+                                                        $period_info = isset($campaign_info['period_info']) ? $campaign_info['period_info'] : null;
+
+                                                        // period_start と period_end を取得
+                                                        $date_start = $period_info && isset($period_info['period_start']) ? esc_html($period_info['period_start']) : '期間情報がありません';
+                                                        $date_end = $period_info && isset($period_info['period_end']) ? esc_html($period_info['period_end']) : '';
 
                                                         // date_end が設定されていない場合は、date_start のみを表示
                                                         echo $date_start . ($date_end ? ' - ' . $date_end : '');

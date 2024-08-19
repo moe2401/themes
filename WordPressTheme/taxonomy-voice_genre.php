@@ -56,33 +56,31 @@
                                                     // グループフィールドを取得
                                                     $voice_info = get_field('voice_info');
 
-                                                    // voice_age の取得
+                                                    // voice_age の取得（選択フィールドの場合）
                                                     $age_value = '';
-                                                    if (is_array($voice_info) && isset($voice_info['voice_age'][0]['value'])) {
-                                                        $age_value = esc_html($voice_info['voice_age'][0]['value']);
+                                                    if (is_array($voice_info) && isset($voice_info['voice_age'])) {
+                                                        $age_value = esc_html($voice_info['voice_age']); // 単一の値を取得
                                                     }
 
-                                                    // voice_gender の取得
+                                                    // voice_gender の取得（選択フィールドの場合）
                                                     $gender_value = '';
-                                                    if (is_array($voice_info) && isset($voice_info['voice_gender'][0])) {
-                                                        $gender_value = esc_html($voice_info['voice_gender'][0]);
+                                                    if (is_array($voice_info) && isset($voice_info['voice_gender'])) {
+                                                        $gender_value = esc_html($voice_info['voice_gender']); // 単一の値を取得
                                                     }
                                                     ?>
 
                                                     <span class="voice-card__age">
-                                                        <?php echo $age_value . ($gender_value ? "($gender_value)" : ''); ?>
+                                                        <?php echo $age_value . ($gender_value ? " ($gender_value)" : ''); ?>
                                                     </span>
 
                                                     <!-- カテゴリー -->
-                                                    <?php
-                                                    $taxonomy_terms = get_the_terms(get_the_ID(), 'voice_genre');
-                                                    if (!empty($taxonomy_terms)) {
-                                                        foreach ($taxonomy_terms as $taxonomy_term) {
-                                                            echo '<span class="voice-card__tag">' . esc_html($taxonomy_term->name) . '</span>';
-                                                        }
-                                                    }
-                                                    ?>
+                                                    <?php if ($taxonomy_terms = get_the_terms(get_the_ID(), 'voice_genre')) : ?>
+                                                        <?php foreach ($taxonomy_terms as $taxonomy_term) : ?>
+                                                            <p class="voice-card__tag"><?php echo esc_html($taxonomy_term->name); ?></p>
+                                                        <?php endforeach; ?>
+                                                    <?php endif; ?>
                                                 </div>
+
                                                 <div class="voice-card__title">
                                                     <?php the_title(); ?>
                                                 </div>

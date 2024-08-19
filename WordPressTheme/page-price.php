@@ -59,7 +59,12 @@
                       <?php echo esc_html($item['add_title']); ?>
                     </dt>
                     <dd class="price-list__data">
-                      <?php echo nl2br(esc_html($item['add_price'])); ?>
+                      <?php
+                      // add_price が存在し、数値であることを確認
+                      $add_price = isset($item['add_price']) && is_numeric($item['add_price']) ? $item['add_price'] : 0;
+                      $formatted_price = '￥' . number_format($add_price);
+                      echo esc_html($formatted_price);
+                      ?>
                     </dd>
                   </div>
                 <?php

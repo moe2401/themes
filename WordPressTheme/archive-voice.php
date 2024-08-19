@@ -54,21 +54,21 @@
                           // グループフィールドを取得
                           $voice_info = get_field('voice_info');
 
-                          // voice_age の取得
+                          // voice_age の取得（選択フィールドの場合）
                           $age_value = '';
-                          if (is_array($voice_info) && isset($voice_info['voice_age'][0]['value'])) {
-                            $age_value = esc_html($voice_info['voice_age'][0]['value']);
+                          if (is_array($voice_info) && isset($voice_info['voice_age'])) {
+                            $age_value = esc_html($voice_info['voice_age']); // 単一の値を取得
                           }
 
-                          // voice_gender の取得
+                          // voice_gender の取得（選択フィールドの場合）
                           $gender_value = '';
-                          if (is_array($voice_info) && isset($voice_info['voice_gender'][0])) {
-                            $gender_value = esc_html($voice_info['voice_gender'][0]);
+                          if (is_array($voice_info) && isset($voice_info['voice_gender'])) {
+                            $gender_value = esc_html($voice_info['voice_gender']); // 単一の値を取得
                           }
                           ?>
 
                           <span class="voice-card__age">
-                            <?php echo $age_value . ($gender_value ? "($gender_value)" : ''); ?>
+                            <?php echo $age_value . ($gender_value ? " ($gender_value)" : ''); ?>
                           </span>
 
                           <!-- カテゴリー -->
@@ -78,6 +78,7 @@
                             <?php endforeach; ?>
                           <?php endif; ?>
                         </div>
+
 
                         <div class="voice-card__title">
                           <?php the_title(); ?>

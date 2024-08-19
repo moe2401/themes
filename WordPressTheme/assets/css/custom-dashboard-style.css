@@ -1,0 +1,33 @@
+.custom_widget {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  text-align: center;
+}
+
+.custom_widget li {
+  transition: transform .6s ease; /* li全体にアニメーションを追加 */
+}
+
+.custom_widget li p {
+  font-weight: bold;
+  font-size: 16px;
+  transition: transform .6s ease; /* pタグにアニメーションを追加 */
+}
+
+.dashicons {
+  font-size: 25px;
+  transition: transform .6s ease; /* dashiconsにアニメーションを追加 */
+}
+
+.custom_widget a {
+  text-decoration: none; /* リンクの下線を消す */
+}
+
+.custom_widget li:hover p {
+  transform: scale(1.1); /* pタグをズーム */
+}
+
+.custom_widget li:hover .dashicons {
+  transform: scale(1.1); /* dashiconsをズーム */
+}

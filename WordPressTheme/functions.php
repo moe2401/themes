@@ -81,34 +81,6 @@ function setPostViews($postID)
 // Prevents WordPress from printing previous and next post links in the head
 remove_action('wp_head', 'adjacent_posts_rel_link_wp_head', 10, 0);
 
-/* ---------- 「投稿」の表記変更 ---------- */
-function Change_menulabel()
-{
-  global $menu;
-  global $submenu;
-  $name = 'ブログ';
-  $menu[5][0] = $name;
-  $submenu['edit.php'][5][0] = $name . '一覧';
-  $submenu['edit.php'][10][0] = '新規' . $name . '投稿';
-}
-function Change_objectlabel()
-{
-  global $wp_post_types;
-  $name = 'ブログ';
-  $labels = &$wp_post_types['post']->labels;
-  $labels->name = $name;
-  $labels->singular_name = $name;
-  $labels->add_new = _x('追加', $name);
-  $labels->add_new_item = $name . 'の新規追加';
-  $labels->edit_item = $name . 'の編集';
-  $labels->new_item = '新規' . $name;
-  $labels->view_item = $name . 'を表示';
-  $labels->search_items = $name . 'を検索';
-  $labels->not_found = $name . 'が見つかりませんでした';
-  $labels->not_found_in_trash = 'ゴミ箱に' . $name . 'は見つかりませんでした';
-}
-add_action('init', 'Change_objectlabel');
-add_action('admin_menu', 'Change_menulabel');
 
 
 //--------------thanksページへ遷移---------------------
@@ -204,3 +176,143 @@ function modify_campaign_query($query)
 
 // initアクションフックに追加
 add_action('init', 'unregister_taxonomy_for_post_type');
+
+
+// ----------------------管理画面------------------------
+/* ---------- 「投稿」の表記変更 ---------- */
+function Change_menulabel()
+{
+  global $menu;
+  global $submenu;
+  $name = 'ブログ';
+  $menu[5][0] = $name;
+  $submenu['edit.php'][5][0] = $name . '一覧';
+  $submenu['edit.php'][10][0] = '新規' . $name . '投稿';
+}
+function Change_objectlabel()
+{
+  global $wp_post_types;
+  $name = 'ブログ';
+  $labels = &$wp_post_types['post']->labels;
+  $labels->name = $name;
+  $labels->singular_name = $name;
+  $labels->add_new = _x('追加', $name);
+  $labels->add_new_item = $name . 'の新規追加';
+  $labels->edit_item = $name . 'の編集';
+  $labels->new_item = '新規' . $name;
+  $labels->view_item = $name . 'を表示';
+  $labels->search_items = $name . 'を検索';
+  $labels->not_found = $name . 'が見つかりませんでした';
+  $labels->not_found_in_trash = 'ゴミ箱に' . $name . 'は見つかりませんでした';
+}
+add_action('init', 'Change_objectlabel');
+add_action('admin_menu', 'Change_menulabel');
+
+// ------------「メディア」の名前変更------------------
+function change_menu_label()
+{
+  global $menu, $submenu;
+  $menu[10][0] = '画像・ファイル';
+  $submenu['upload.php'][5][0] = '画像・ファイル一覧';
+  $submenu['upload.php'][10][0] = '画像・ファイルを追加';
+}
+add_action('admin_menu', 'change_menu_label');
+
+// ------------ダッシュボードにオリジナルウィジェットを追加する--------------
+add_action('wp_dashboard_setup', 'my_dashboard_widgets');
+function my_dashboard_widgets()
+{
+  wp_add_dashboard_widget('my_theme_options_widget', 'ショートカットリンク', 'my_dashboard_widget_function');
+}
+
+function my_dashboard_widget_function()
+{
+  echo '<ul class="custom_widget">
+            <li>
+              <a href="post-new.php">
+                <p>ブログ</p>
+                <div class="dashicons dashicons-edit"></div>
+              </a>
+            </li>
+            <li>
+              <a href="post-new.php?post_type=campaign">
+                <p>キャンペーン</p>
+                <div class="dashicons dashicons-megaphone"></div>
+              </a>
+            </li>
+            <li>
+              <a href="edit.php?post_type=voice">
+                <p>お客様の声</p>
+                <div class="dashicons dashicons-admin-users"></div>
+              </a>
+            </li>
+            <li>
+              <a href="post.php?post=127&action=edit">
+                <p>料金の変更</p>
+                <div class="dashicons dashicons-money"></div>
+              </a>
+            </li>
+            <li>
+              <a href="post.php?post=153&action=edit">
+                <p>よくある質問</p>
+                <div class="dashicons dashicons-lightbulb"></div>
+              </a>
+            </li>
+            <li>
+              <a href="post.php?post=10&action=edit">
+                <p>ギャラリー</p>
+                <div class="dashicons dashicons-format-gallery"></div>
+              </a>
+            </li>
+          </ul>';
+}
+
+function custom_admin_enqueue()
+{
+  wp_enqueue_style('custom-dashboard-style', get_stylesheet_directory_uri() . '/assets/css/custom-dashboard-style.css');
+}
+add_action('admin_enqueue_scripts', 'custom_admin_enqueue');
+
+
+// -------------------------投稿ページ--------------------------
+//---------------サムネイルカラム追加----------------
+function customize_manage_posts_columns($columns)
+{
+  $columns['thumbnail'] = __('Thumbnail');
+  return $columns;
+}
+add_filter('manage_posts_columns', 'customize_manage_posts_columns');
+
+//サムネイル画像表示
+function customize_manage_posts_custom_column($column_name, $post_id)
+{
+  if ('thumbnail' == $column_name) {
+    $thum = get_the_post_thumbnail($post_id, 'small', array('style' => 'width:100px;height:auto;'));
+  }
+  if (isset($thum) && $thum) {
+    echo $thum;
+  } else {
+    echo __('None');
+  }
+}
+add_action('manage_posts_custom_column', 'customize_manage_posts_custom_column', 10, 2);
+
+// ------------------ログイン画面のカスタマイズ-------------------------
+function custom_login_style()
+{ ?>
+  <style>
+    /* ①ログイン画面の背景  */
+    body.login {
+      background-color: #ddf0f1;
+    }
+
+    /* ②ログイン画面のロゴ */
+    body.login h1 a {
+      width: 100%;
+      background-repeat: no-repeat;
+      background-size: contain;
+      background-image: url('<?php echo esc_url(get_template_directory_uri() . '/assets/images/common/logo.svg'); ?>')
+    }
+  </style>
+<?php }
+add_action('login_enqueue_scripts', 'custom_login_style');
